@@ -2,8 +2,25 @@
 <div class="row">
   <div class="large-12">
     <h2> innate stage initiated. viruses are attacking! </h2>
-    <h1> you have <%= "#{@system.meta_points}" %> metabolism points to spend.
-		<%= button_to "cytokine", system_stage_path(@system, @stage), method: "patch", remote: true, form: { data: { 'cytokine-button' => 'create' } } %>
-     </div>
-    </div>
+    <% if @system.meta_points > 0 %>
+      <h1> you have <%= "#{@system.meta_points}" %> metabolism points to spend.</h1>
+  		<%= form_for @stage, {
+        url: system_stage_path(@system, @stage), method: "patch"
+      } do |f| %>
+        <%= f.label :cytokines, "cytokines" %>
+        <%= f.select :cytokines, (0..30) %>
+        <%= f.label :macromolecules, "macromolecules" %>
+        <%= f.select :macromolecules, (0..30) %>
+        <%= f.label :phagocytes, "phagocytes" %>
+        <%= f.select :phagocytes, (0..30) %>
+        <%= f.submit "add points" %>
+      <% end %>
+    <% else %>
+      <h1><%= flash[:notice] = "you have no more meta points." %></h1>
+      <%= form_tag @system do %>
+        <%= radio_button_tag(:reset, "reset points") %>
+        <%= radio_button_tag(:continue, "continue") %>
+      <% end %>
+   </div>
+  </div>
 <% end %>

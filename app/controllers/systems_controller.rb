@@ -13,21 +13,24 @@ class SystemsController < ApplicationController
   end
 
   def create
-    @system = System.new
-    @system.user = current_user
-    if @system.save
-      100.times do
-        Cell.create(system: @system)
+    if user_system == nil
+      @system = System.new
+      @system.user = current_user
+      if @system.save
+        100.times do
+          Cell.create(system: @system)
+        end
+        100.times do
+          Virus.create(system: @system)
+        end
+        Stage.create(system: @system)
+        flash[:notice] = "this one's name is
+          #{Faker::Name.first_name}. keep it safe. good luck."
+        redirect_to system_path(@system)
+      else
+        render :new
       end
-      100.times do
-        Virus.create(system: @system)
-      end
-      Stage.create(system: @system)
-      flash[:notice] = "this one's name is
-        #{Faker::Name.first_name}. keep it safe. good luck."
-      redirect_to system_path(@system)
-    else
-      render :new
+    else redirect_to system_path(user_system)
     end
   end
 
