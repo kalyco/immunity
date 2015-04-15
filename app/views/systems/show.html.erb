@@ -1,0 +1,9 @@
+<% if @stage.name == "innate" %>
+<div class="row">
+  <div class="large-12">
+    <h2> innate stage initiated. viruses are attacking! </h2>
+    <h1> you have <%= "#{@system.meta_points}" %> metabolism points to spend.
+		<%= button_to "cytokine", system_stage_path(@system, @stage), method: "patch", remote: true, form: { data: { 'cytokine-button' => 'create' } } %>
+     </div>
+    </div>
+<% end %>

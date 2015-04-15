@@ -1,0 +1,10 @@
+<p> welcome to immunity </p>
+<% if @cur_sys == nil %>
+  <p><%= link_to "new game", new_system_path(@system) %></p>
+<% else %>
+  <p><%= link_to "continue", systems_path(@cur_sys) %></p><br>
+  <%= link_to "restart game", {
+  	controller: :systems, action: :destroy, id: @cur_sys.id },
+  	method: :delete, data: { confirm: 'you sure? you can not recover your system.'
+  } %>
+<% end %>
