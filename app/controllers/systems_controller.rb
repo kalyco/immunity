@@ -5,7 +5,7 @@ class SystemsController < ApplicationController
     @system = System.find(params[:id])
     @cells = Cell.where(system: @system)
     @viri = Virus.where(system: @system)
-    @stage = @system.stage
+    @stage = Stage.find(params[:id])
   end
 
   def new
@@ -42,7 +42,7 @@ class SystemsController < ApplicationController
       @system = System.find(params[:id])
       @system.destroy
       flash[:notice] = 'disease is immunodeficient. system shut down'
-      redirect_to "/"
+      redirect_to homes_index_path
   end
 
   def user_system

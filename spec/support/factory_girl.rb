@@ -13,3 +13,12 @@ FactoryGirl.define do
 		user
 	end
 end
+
+FactoryGirl.define do
+  factory :stage do
+    system
+    cytokines 0
+    phagocytes 0
+    macromolecules 0
+  end
+end

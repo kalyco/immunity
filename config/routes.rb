@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'systems#new'
+  root 'homes#index'
   resources :systems do
   resources :stages
   resources :cells

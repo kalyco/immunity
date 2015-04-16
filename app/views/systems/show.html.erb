@@ -1,26 +1,34 @@
 <% if @stage.name == "innate" %>
+  <% if @stage.errors.present? %>
+    <% @stage.errors.full_messages.each do |error| %>
+      <ul>
+        <li><%= error %></li>
+      </ul>
+    <% end %>
+  <% end %>
 <div class="row">
   <div class="large-12">
     <h2> innate stage initiated. viruses are attacking! </h2>
     <% if @system.meta_points > 0 %>
       <h1> you have <%= "#{@system.meta_points}" %> metabolism points to spend.</h1>
   		<%= form_for @stage, {
-        url: system_stage_path(@system, @stage), method: "patch"
+        url: system_stage_path(@system, @stage), action: "update"
       } do |f| %>
-        <%= f.label :cytokines, "cytokines" %>
-        <%= f.select :cytokines, (0..30) %>
-        <%= f.label :macromolecules, "macromolecules" %>
-        <%= f.select :macromolecules, (0..30) %>
-        <%= f.label :phagocytes, "phagocytes" %>
-        <%= f.select :phagocytes, (0..30) %>
+        <div class="cytokines"><%= f.label :cytokines, "cytokines" %><%= @stage.cytokines %>
+        <%= f.select :cytokines, options_for_select(0..30) %></div>
+        <div class="macromolecules"><%= f.label :macromolecules, "macromolecules" %><%= @stage.macromolecules %>
+        <%= f.select :macromolecules, options_for_select(0..30) %></div>
+        <div class="phagocytes"><%= f.label :phagocytes, "phagocytes" %><%= @stage.phagocytes %>
+        <%= f.select :phagocytes, options_for_select(0..30) %></div>
         <%= f.submit "add points" %>
       <% end %>
     <% else %>
-      <h1><%= flash[:notice] = "you have no more meta points." %></h1>
+      <h1><%= flash[:notice] = "you do not have enough meta points." %></h1>
       <%= form_tag @system do %>
         <%= radio_button_tag(:reset, "reset points") %>
         <%= radio_button_tag(:continue, "continue") %>
       <% end %>
+    <% end %>
    </div>
   </div>
 <% end %>
