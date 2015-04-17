@@ -13,7 +13,7 @@ class StagesController < ApplicationController
     # respond_to do |format|
     if @stage.update(stage_params)
       @system.meta_score
-      flash[:notice] = "updated"
+      flash[:notice] = "updated"≥
       redirect_to system_path(@stage.system)
       # format.html { redirect_to :back, notice: "We heard your save!" }
       # format.json { render json: stage }
