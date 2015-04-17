@@ -5,7 +5,7 @@ class SystemsController < ApplicationController
     @system = System.find(params[:id])
     @cells = Cell.where(system: @system)
     @viri = Virus.where(system: @system)
-    @stage = Stage.find(params[:id])
+    @stage = @system.stage
   end
 
   def new
@@ -34,8 +34,17 @@ class SystemsController < ApplicationController
     end
   end
 
+  def edit
+    @system = user_system
+  end
+
   def update
     @system = user_system
+    @stage = @system.stage
+    if @system.update(system_params)
+      flash[:notice] = "system updated"
+      redirect_to system_path(@system)
+    end
   end
 
   def destroy
@@ -47,5 +56,11 @@ class SystemsController < ApplicationController
 
   def user_system
     System.find_by(user: current_user)
+  end
+
+  private
+
+  def system_params
+    params.require(:system).permit(:stage, :reset, :continue, :meta_points, :memory)
   end
 end

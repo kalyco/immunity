@@ -7,15 +7,19 @@ class System < ActiveRecord::Base
 	validates_presence_of :user
 
   def meta_score
-    if self.system.meta_points > 0
-      self.cytokines += cyto
-      self.macromolecules += macro
-      self.phagocytes += phago
-      self.system.meta_points -= (cyto + macro + phago)
-      self.save
-      self.system.save
+    if meta_points > 0
+      stage = Stage.find_by(system: self)
+      self.meta_points = 30
+      self.meta_points -= (stage.cytokines + stage.phagocytes + stage.macromolecules)
+      save
     end
     self.meta_points
+  end
+
+  def continue
+    binding.pry
+    stage = Stage.find(self)
+    stage.name = "adaptive"
   end
 
   def reset

@@ -6,10 +6,13 @@ class StagesController < ApplicationController
   end
 
   def update
+    @system = System.find(params[:system_id])
     @stage = Stage.find(params[:id])
+    @system.meta_score
     @system = @stage.system
     # respond_to do |format|
     if @stage.update(stage_params)
+      @system.meta_score
       flash[:notice] = "updated"
       redirect_to system_path(@stage.system)
       # format.html { redirect_to :back, notice: "We heard your save!" }
@@ -17,7 +20,7 @@ class StagesController < ApplicationController
     else
       # format.html { redirect_to :back }
       # format.json { render json: stage.errors, status: :unprocessable_entity }
-      flash[:notice] = "not saved"
+      flash[:notice] = "not updated"
       render :edit
     # end
     end

@@ -24,9 +24,9 @@
       <% end %>
     <% else %>
       <h1><%= flash[:notice] = "you do not have enough meta points." %></h1>
-      <%= form_tag @system do %>
-        <%= radio_button_tag(:reset, "reset points") %>
-        <%= radio_button_tag(:continue, "continue") %>
+      <%= form_for @system do |f| %>
+        <%= f.submit (:reset) %>
+        <%= f.submit (:continue) %>
       <% end %>
     <% end %>
    </div>
