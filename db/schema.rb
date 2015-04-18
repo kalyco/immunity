@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417184147) do
+ActiveRecord::Schema.define(version: 20150418193015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150417184147) do
     t.string   "status",     default: "antibody"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "volatility", default: false
   end
 
   create_table "stages", force: :cascade do |t|
@@ -36,12 +37,16 @@ ActiveRecord::Schema.define(version: 20150417184147) do
   add_index "stages", ["system_id"], name: "index_stages_on_system_id", unique: true, using: :btree
 
   create_table "systems", force: :cascade do |t|
-    t.integer  "meta_points", default: 30
-    t.integer  "user_id",                               null: false
-    t.integer  "memory",      default: 0
+    t.integer  "meta_points",     default: 30
+    t.integer  "user_id",                                   null: false
+    t.integer  "memory",          default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",      default: "uncompromised"
+    t.string   "status",          default: "uncompromised"
+    t.integer  "balance_points",  default: 0
+    t.integer  "differentiation", default: 0
+    t.integer  "apoptosis",       default: 1
+    t.integer  "pyrogenation",    default: 1
   end
 
   add_index "systems", ["user_id"], name: "index_systems_on_user_id", unique: true, using: :btree
