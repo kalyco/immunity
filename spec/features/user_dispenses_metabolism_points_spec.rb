@@ -10,11 +10,26 @@ feature "user dispenses meta points" do
     select 8, from: "cytokines"
     select 9, from: "macromolecules"
     select 13, from: "phagocytes"
-    click_button "add points"
+    click_button "submit points"
 
-    expect(page).to have_content("updated")
-    expect(stage.cytokines).to eq 8
-    expect(stage.macromolecules).to eq 9
-    expect(stage.phagocytes).to eq 13
+    expect(page).to have_content("no more meta points remaining")
+    expect(page).to have_content("cytokines: 8")
+    expect(page).to have_content("macromolecules: 9")
+    expect(page).to have_content("phagocytes: 13")
+  end
+
+  scenario "user can't dispense more than 30 points" do
+    sign_in stage.system.user
+    visit system_path(stage.system)
+
+    select 20, from: "cytokines"
+    select 9, from: "macromolecules"
+    select 13, from: "phagocytes"
+    click_button "submit points"
+
+    expect(page).to have_content("you have 30 meta points to spend.")
+    expect(stage.cytokines).to eq(0)
+    expect(stage.macromolecules).to eq(0)
+    expect(stage.phagocytes).to eq(0)
   end
 end

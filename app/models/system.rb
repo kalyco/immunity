@@ -4,22 +4,22 @@ class System < ActiveRecord::Base
 	has_many :cells
 	has_one :stage
 
+  validates :meta_points, numericality: { greater_than_or_equal_to: 0}
 	validates_presence_of :user
 
   def meta_score
-    if meta_points > 0
-      stage = Stage.find_by(system: self)
-      self.meta_points = 30
+    points = "you have #{self.meta_points} meta points to spend."
+    if self.meta_points == 30
       self.meta_points -= (stage.cytokines + stage.phagocytes + stage.macromolecules)
-      save
+      stage = Stage.find_by(system: self)
+      self.save
+      if self.meta_points != 0
+        reset
+      end
+    else
+      reset
     end
-    self.meta_points
-  end
-
-  def continue
-    binding.pry
-    stage = Stage.find(self)
-    stage.name = "adaptive"
+    return points
   end
 
   def reset
@@ -27,5 +27,6 @@ class System < ActiveRecord::Base
     self.stage.cytokines = 0
     self.stage.macromolecules = 0
     self.stage.phagocytes = 0
+    self.save
   end
 end

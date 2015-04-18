@@ -41,9 +41,10 @@ class SystemsController < ApplicationController
   def update
     @system = user_system
     @stage = @system.stage
-    if @system.update(system_params)
-      flash[:notice] = "system updated"
-      redirect_to system_path(@system)
+      if @system.update(system_params)
+        @stage.reset
+        flash[:notice] = "updated"
+        redirect_to system_path(@system)
     end
   end
 
@@ -51,7 +52,7 @@ class SystemsController < ApplicationController
       @system = System.find(params[:id])
       @system.destroy
       flash[:notice] = 'disease is immunodeficient. system shut down'
-      redirect_to homes_index_path
+      redirect_to root_path
   end
 
   def user_system
@@ -61,6 +62,6 @@ class SystemsController < ApplicationController
   private
 
   def system_params
-    params.require(:system).permit(:stage, :reset, :continue, :meta_points, :memory)
+    params.require(:system).permit(:stage, :meta_points, :memory)
   end
 end
