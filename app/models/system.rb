@@ -3,8 +3,9 @@ class System < ActiveRecord::Base
 	has_many :viri
 	has_many :cells
 	has_one :stage
+  has_one :turn
 
-  validates :meta_points, numericality: { greater_than_or_equal_to: 0}
+  validates :meta_points, numericality: { greater_than_or_equal_to: 0 }
 	validates_presence_of :user
 
   def meta_score
@@ -18,8 +19,13 @@ class System < ActiveRecord::Base
       end
     else
       reset
-    end
     return points
+  end
+  end
+
+  def balance_score
+    if self.stage.cytokines != 0
+    end
   end
 
   def reset

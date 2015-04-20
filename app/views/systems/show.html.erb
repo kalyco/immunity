@@ -8,10 +8,10 @@
   <% end %>
 <div class="row">
   <div class="large-12">
-    <h2> innate stage initiated. viruses are attacking! </h2>
-    <% if @system.meta_points > 0 %>
-      <h1><%= "#{@system.meta_score}" %></h1>
-  		<%= form_for @stage, {
+    <% if @system.meta_points == 30 %>
+        <h2> innate stage initiated. viruses are attacking! </h2>
+        <h1><%= "#{@system.meta_score}" %></h1>
+  		  <%= form_for @stage, {
         url: system_stage_path(@system, @stage), action: "update"
       } do |f| %>
         <div class="cytokines"><%= f.label :cytokines, "cytokines" %><%= @stage.cytokines %>
@@ -23,7 +23,7 @@
         <%= f.submit "submit points" %>
       <% end %>
     <% else %>
-      <h1><%= flash[:notice] = "no more meta points remaining." %></h1>
+      <h1><%= flash[:notice] = "meta points dispensed. continue to adaptive stage?" %></h1>
       <ul>
         <li>cytokines: <%= @stage.cytokines %></li>
         <li>macromolecules: <%= @stage.macromolecules %></li>
@@ -44,5 +44,112 @@
     <% end %>
    </div>
   </div>
-  <% else render "adaptive.html.erb" %>
+  <% else %>
+    <%= form_for @stage, {
+      url: system_stage_path(@system, @stage), action: "update"
+    } do |f| %>
+      <div="clicks"><%= f.hidden_field :name, :value => "innate" %>
+      <%= f.submit "back", class: "button" %></div="clicks">
+    <% end %>
+      <div class="row">
+  <div class="large-12">
+  <h1> your immune system is currently <%= @system.status %> </h1>
+  <h1><%= link_to "turn ##{@system.turn.number}", system_viri_path(@viri) %>
+  </div>
+    <div>
+      <div id="parent"><%= link_to "generate more B cells",
+        new_system_cell_path(@system) %> || <div id='popup'
+          style="display: none"> to combat the enemy viruses. CAREFUL though.
+          more cells risk greater subjugation from viruses.</div>
+      <div id="parent1"><%= link_to "activate pyrogenation",
+        system_path(@system), method: :PUT %> || <div id='popup1'
+          style="display: none"><%= "#{@system.pyrogenation} remaining. " %>
+          release pyrogens to induce fever. will reduce rate of
+          reproduction to both viruses and cells. ideal proliferation occurs
+          at 98.6º</div>
+      <div id="parent2"><%= link_to "initiate apoptosis",
+        system_cell_path(@system, @cells), action: :destroy %> ||
+      <div id='popup2'
+        style='display: none'><%= "#{@system.apoptosis} remaining. " %>
+        programmed cell death. remove all antigenic cells.
+      </div>
+    </div>
+
+    <h1>system status</h1>
+        <table>
+          <tr>
+            <th>differentiation</th>
+            <th>memory</th>
+            <th>apoptosis</th>
+            <th>pyrogenation</th>
+            <th>balance points</th>
+            <th></th>
+          </tr>
+
+          <tr>
+            <td><%= @system.differentiation %></td>
+            <td><%= @system.memory %></td>
+            <td><%= "#{@system.apoptosis} left" %></td>
+            <td><%= "#{@system.pyrogenation} left" %></td>
+            <td><%= "#{@system.balance_points}" %></td>
+          </tr>
+        </table>
+
+    <h1>cell state</h1>
+      <table>
+        <tr>
+          <th>cells</th>
+          <th>antigens</th>
+          <th>antibodies</th>
+          <th></th>
+        </tr>
+
+        <tr>
+          <td><%= @cells.count %></td>
+          <% antigens = 0 %>
+          <% antibodies = 0 %>
+          <% @cells.each do |cell| %>
+            <% if cell.status == "antigen" %>
+              <% antigens += 1 %>
+            <% elsif cell.status == "antibody" %>
+              <% antibodies += 1 %>
+            <% end %>
+          <% end %>
+          <td><%= "#{(antigens.to_f/@cells.count)*100}%" %></td>
+          <td><%= "#{(antibodies.to_f/@cells.count)*100}%" %></td>
+        </tr>
+    </table>
+
+    <h1>virus state</h1>
+        <table>
+          <tr>
+            <th>viri</th>
+            <th>lysogenic</th>
+            <th>lytic</th>
+            <th>latent</th>
+            <th></th>
+          </tr>
+
+          <tr>
+            <td><%= @viri.count %></td>
+            <% latent = 0 %>
+            <% lysogenic = 0 %>
+            <% lytic = 0 %>
+            <% @viri.each do |virus| %>
+              <% if virus.status = "latent" %>
+              <%  latent += 1 %>
+              <% elsif virus.status = "lysogenic" %>
+              <%  lysogenic += 1 %>
+              <% elsif virus.status = "lytic" %>
+              <%  lytic += 1 %>
+              <% end %>
+            <% end %>
+            <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
+            <td><%= "#{(lytic/@viri.count)*100}%" %></td>
+            <td><%= "#{(latent/@viri.count)*100}%" %></td>
+          </tr>
+      </table>
+      <%= link_to "attempt vaccination", system_viri_path(@system) %>
+  </div>
+</div>
 <% end %>

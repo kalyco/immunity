@@ -1,3 +1,4 @@
+hi
 <%= form_for @stage, {
       url: system_stage_path(@system, @stage), action: "update"
     } do |f| %>
@@ -8,9 +9,9 @@
   <div class="large-12">
   <h1> your immune system is currently <%= @system.status %> </h1>
   <%= link_to "differentiate", system_path %>
-    <%= link_to "build memory", system_virus_path,
+    <%= link_to "build memory", system_viri_path(@system),
     :controller => :viri, :action => :edit %>
-    <%= link_to "initiate apoptosis", systems_cell_path,
+    <%= link_to "initiate apoptosis", system_cells_path(@system),
     :controller => :cells, :action => :destroy %>
 
     <h1>system status</h1>
@@ -19,15 +20,15 @@
             <th>differentiation</th>
             <th>memory</th>
             <th>apoptosis</th>
-            <th>pyrogenation</th>
+            <th>pyrogenation</th>x
             <th></th>
           </tr>
 
           <tr>
-            <td><%= @system.differentiation? %></td>
-            <td><%= "#{@system.memory}%" %></td>
-            <td><%= @system.apoptosis? %></td>
-            <td><%= @system.pyrogenation? %></td>
+            <td><%= @system.differentiation %></td>
+            <td><%= @system.memory %></td>
+            <td><%= @system.apoptosis %></td>
+            <td><%= @system.pyrogenation %></td>
           </tr>
         </table>
 
@@ -45,9 +46,9 @@
           <% antigens = 0 %>
           <% antibodies = 0 %>
           <%= @cells.each do |cell| %>
-            <% if cell.status == antigen %>
+            <% if cell.status == "antigen" %>
               <% antigens += 1 %>
-            <% elsif cell.status == antibody %>
+            <% elsif cell.status == "antibody" %>
               <%= antibodies += 1 %>
             <% end %>
           <% end %>
@@ -72,11 +73,11 @@
             <% lysogenic = 0 %>
             <% lytic = 0 %>
             <% @viri.each do |virus| %>
-              <% if virus.status_name = "latent" %>
+              <% if virus.status = "latent" %>
               <%  latent += 1 %>
-              <% elsif virus.status_name = "lysogenic" %>
+              <% elsif virus.status = "lysogenic" %>
               <%  lysogenic += 1 %>
-              <% elsif virus.status_name = "lytic" %>
+              <% elsif virus.status = "lytic" %>
               <%  lytic += 1 %>
               <% end %>
             <% end %>
@@ -85,7 +86,7 @@
             <td><%= "#{(latent/@viri.count)*100}%" %></td>
           </tr>
       </table>
-      <%= link_to "attempt vaccination", system_virus_path %>
+      <%= link_to "attempt vaccination", system_viri_path(@system) %>
   </div>
 </div>
   <% end %>
