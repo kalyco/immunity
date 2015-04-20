@@ -15,3 +15,11 @@
  *= require foundation_and_overrides
 
  */
+
+.parent .popup {
+  display: none;
+}
+
+.parent:hover .popup {
+  display: block;
+}

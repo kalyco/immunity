@@ -54,11 +54,26 @@
       <div class="row">
   <div class="large-12">
   <h1> your immune system is currently <%= @system.status %> </h1>
-  <%= link_to "differentiate", system_path %>
-    <%= link_to "build memory", system_viri_path(@system),
-    :controller => :viri, :action => :edit %>
-    <%= link_to "initiate apoptosis", system_cells_path(@system),
-    :controller => :cells, :action => :destroy %>
+  <h1><%= link_to "turn ##{@system.turn.number}", system_viri_path(@viri) %>
+  </div>
+    <div>
+      <div id="parent"><%= link_to "generate more B cells",
+        new_system_cell_path(@system) %> || <div id='popup'
+          style="display: none"> to combat the enemy viruses. CAREFUL though.
+          more cells risk greater subjugation from viruses.</div>
+      <div id="parent1"><%= link_to "activate pyrogenation",
+        system_path(@system), method: :PUT %> || <div id='popup1'
+          style="display: none"><%= "#{@system.pyrogenation} remaining. " %>
+          release pyrogens to induce fever. will reduce rate of
+          reproduction to both viruses and cells. ideal proliferation occurs
+          at 98.6º</div>
+      <div id="parent2"><%= link_to "initiate apoptosis",
+        system_cell_path(@system, @cells), action: :destroy %> ||
+      <div id='popup2'
+        style='display: none'><%= "#{@system.apoptosis} remaining. " %>
+        programmed cell death. remove all antigenic cells.
+      </div>
+    </div>
 
     <h1>system status</h1>
         <table>
@@ -67,14 +82,16 @@
             <th>memory</th>
             <th>apoptosis</th>
             <th>pyrogenation</th>
+            <th>balance points</th>
             <th></th>
           </tr>
-this is a change
+
           <tr>
             <td><%= @system.differentiation %></td>
             <td><%= @system.memory %></td>
-            <td><%= @system.apoptosis %></td>
-            <td><%= @system.pyrogenation %></td>
+            <td><%= "#{@system.apoptosis} left" %></td>
+            <td><%= "#{@system.pyrogenation} left" %></td>
+            <td><%= "#{@system.balance_points}" %></td>
           </tr>
         </table>
 
@@ -98,8 +115,8 @@ this is a change
               <% antibodies += 1 %>
             <% end %>
           <% end %>
-          <td><%= "#{(antigens/@cells.count)*100}%" %></td>
-          <td><%= "#{(antibodies/@cells.count)*100}%" %></td>
+          <td><%= "#{(antigens.to_f/@cells.count)*100}%" %></td>
+          <td><%= "#{(antibodies.to_f/@cells.count)*100}%" %></td>
         </tr>
     </table>
 
