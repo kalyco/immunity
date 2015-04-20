@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419180124) do
+ActiveRecord::Schema.define(version: 20150420190937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,8 @@ ActiveRecord::Schema.define(version: 20150419180124) do
     t.string   "status",     default: "antibody"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "volatility", default: false
+    t.boolean  "volatility"
+    t.boolean  "volatile",   default: false
   end
 
   create_table "stages", force: :cascade do |t|
@@ -47,14 +48,15 @@ ActiveRecord::Schema.define(version: 20150419180124) do
     t.integer  "differentiation", default: 0
     t.integer  "apoptosis",       default: 1
     t.integer  "pyrogenation",    default: 1
+    t.integer  "stage_order",     default: 0
   end
 
   add_index "systems", ["user_id"], name: "index_systems_on_user_id", unique: true, using: :btree
 
   create_table "turns", force: :cascade do |t|
-    t.string   "order",      default: "viri"
-    t.string   "phase",      default: "beginning"
-    t.integer  "number",     default: 1
+    t.integer  "system_id",              null: false
+    t.integer  "order",      default: 1
+    t.string   "player"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,9 +81,10 @@ ActiveRecord::Schema.define(version: 20150419180124) do
 
   create_table "viri", force: :cascade do |t|
     t.integer  "system_id"
-    t.string   "status",     default: "latent"
+    t.string   "status",      default: "latent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stage_order", default: 0
   end
 
 end

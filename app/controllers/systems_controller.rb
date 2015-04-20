@@ -23,7 +23,10 @@ class SystemsController < ApplicationController
         100.times do
           Virus.create(system: @system)
         end
-        Stage.create(system: @system)
+        stage = Stage.create(system: @system)
+        turn = Turn.create(system: @system)
+        turn.save
+        stage.save
         flash[:notice] = "this one's name is
           #{Faker::Name.first_name}. keep it safe. good luck."
         redirect_to system_path(@system)

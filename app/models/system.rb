@@ -1,9 +1,9 @@
 class System < ActiveRecord::Base
 	belongs_to :user
+  has_one :turn
 	has_many :viri
 	has_many :cells
 	has_one :stage
-  has_one :turn
 
   validates :meta_points, numericality: { greater_than_or_equal_to: 0 }
 	validates_presence_of :user

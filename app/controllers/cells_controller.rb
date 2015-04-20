@@ -7,6 +7,7 @@ class CellsController < ApplicationController
 
   def create
     @cell = Cell.new(cell_params)
+    @cell.split
     if @cell.save
       flash[:notice] = 'cell created'
       redirect_to '/system'

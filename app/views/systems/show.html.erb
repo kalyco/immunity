@@ -53,8 +53,8 @@
     <% end %>
       <div class="row">
   <div class="large-12">
-  <h1> your immune system is currently <%= @system.status %> </h1>
-  <h1><%= link_to "turn ##{@system.turn.number}", system_viri_path(@viri) %>
+    <%= "turn #{@system.turn.order}: #{@system.turn.player}" %>
+  <h1> system is currently <%= @system.status %> </h1>
   </div>
     <div>
       <div id="parent"><%= link_to "generate more B cells",
