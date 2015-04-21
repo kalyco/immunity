@@ -1,0 +1,30 @@
+<% binding.pry %>
+<% form_for [@system] do %>
+  <%= select_tag options_for_select(0..@system.apoptosis) %>
+  <%= submit_tag "destroy volatile cells" %>
+<% end %>
+
+   <h1>cell state</h1>
+      <table>
+        <tr>
+          <th>cells</th>
+          <th>antigens</th>
+          <th>antibodies</th>
+          <th></th>
+        </tr>
+
+        <tr>
+          <td><%= @cells.count %></td>
+          <% antigens = 0 %>
+          <% antibodies = 0 %>
+          <% @cells.each do |cell| %>
+            <% if cell.status == "antigen" %>
+              <% antigens += 1 %>
+            <% elsif cell.status == "antibody" %>
+              <% antibodies += 1 %>
+            <% end %>
+          <% end %>
+          <td><%= "#{(antigens.to_f/@cells.count)*100}%" %></td>
+          <td><%= "#{(antibodies.to_f/@cells.count)*100}%" %></td>
+        </tr>
+    </table>

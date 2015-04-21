@@ -1,0 +1,8 @@
+<h1>you have <%= @system.meta_points %> meta points to dispense</h1>
+  <%= form_for [@system, @cell] do %>
+  <%= select_tag "new cells", options_for_select(0..@system.meta_points) %>
+  <%= submit_tag "create cells" %>
+<% end %>
+
+
+

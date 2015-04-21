@@ -7,7 +7,14 @@ class Cell < ActiveRecord::Base
 		ANTIGEN => "antigen"
 	}
 
+  def split
+    rando = [true, false]
+    self.volatile == rando.sample
+    self.save
+  end
+
 	belongs_to :system
+  has_one :virus
 
 	validates_presence_of :system
 

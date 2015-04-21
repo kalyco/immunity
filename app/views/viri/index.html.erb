@@ -1,0 +1,30 @@
+  virus does x
+
+  <h1>virus state</h1>
+  <table>
+    <tr>
+      <th>viri</th>
+      <th>lysogenic</th>
+      <th>lytic</th>
+      <th>latent</th>
+      <th></th>
+    </tr><tr>
+
+  <td><%= @viri.count %></td>
+  <% latent = 0 %>
+  <% lysogenic = 0 %>
+  <% lytic = 0 %>
+  <% @viri.each do |virus| %>
+    <% if virus.status = "latent" %>
+    <%  latent += 1 %>
+    <% elsif virus.status = "lysogenic" %>
+    <%  lysogenic += 1 %>
+    <% elsif virus.status = "lytic" %>
+    <%  lytic += 1 %>
+    <% end %>
+  <% end %>
+  <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
+  <td><%= "#{(lytic/@viri.count)*100}%" %></td>
+  <td><%= "#{(latent/@viri.count)*100}%" %></td>
+</tr>
+</table>

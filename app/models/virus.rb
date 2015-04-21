@@ -1,30 +1,50 @@
 class Virus < ActiveRecord::Base
 	belongs_to :system
-  has_many :cells
-  has_many :turns
+  has_one :turn, through: :system
+  has_one :cell
 
 	validates_presence_of :system
 
-  def subjugation
-    system = self.system
-    subjugated = Virus.where(status: "latent")
-    cells = Cell.where(system: system, status: "antibody")
-      cells.each do |cell|
-        if rand(3) == 1
-          cell.status = "antigen"
-          cell.save
-        end
+  def cycle_choice
+    if self.status == "latent"
+      host = Cell.find_by(system: self.system, status: "antibody")
+      host.virus = self
+      host.save
+      if host.volatile == "true"
+        self.status = "lysogenic"
+        host.status = "subjugated"
+      else self.status = "lytic"
+        host.status = "marked"
       end
-  end
-
-  def virus_turn
-    if self.turn.order == "viri"
-      self.subjugation
-      self.reproduction
-    end
+    self.save
   end
 end
 
-# based on the number of viruses, there will be an attempted subjugation of cells.
-# up to 1/3rd of latent viruses can attempt to subjugate cells
-# cells that are subjugated essentially become virus factories, creating latent viruses each turn
+def cycle(status)
+  if self.status != "latent"
+    self.stage += 1
+    if self.stage_order == 1
+      self.stage = "binding"
+    elsif self.stage_order == 2
+      self.stage = "insertion"
+    end
+    if self.status == "lytic"
+      if self.stage_order == 3
+        self.stage = "replication"
+        3.times do
+          Virus.create(system: self.system)
+        end
+      elsif self.stage_order == 4
+        self.stage = "latent"
+        self.cell.destroy
+        self.stage_order = 0
+      end
+    elsif self.status == "lysogenic" && self.stage_order == 3
+        self.stage = "latent"
+        self.cell.status = "antigen"
+        self.stage_order = 0
+    end
+    self.save
+  end
+end
+end

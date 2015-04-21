@@ -1,5 +1,8 @@
 class AddVolatilityToCells < ActiveRecord::Migration
-  def change
-    add_column :cells, :volatility, :boolean, default: false
+  def up
+    add_column :cells, :volatility, :boolean
+  end
+  def down
+    remove_column :cells, :volaility
   end
 end
