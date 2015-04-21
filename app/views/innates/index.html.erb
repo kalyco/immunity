@@ -1,0 +1,46 @@
+  <% if @stage.errors.present? %>
+    <% @stage.errors.full_messages.each do |error| %>
+      <ul>
+        <li><%= error %></li>
+      </ul>
+    <% end %>
+  <% end %>
+<div class="row">
+  <div class="large-12">
+    <% if @system.meta_points == 30 %>
+        <h2> innate stage initiated. viruses are attacking! </h2>
+        <h1><%= "#{@system.meta_score}" %></h1>
+        <%= form_for @stage, {
+        url: system_stage_path(@system, @stage), action: "update"
+      } do |f| %>
+        <div class="cytokines"><%= f.label :cytokines, "cytokines" %>
+        <%= f.select :cytokines, options_for_select(0..30) %></div>
+        <div class="macromolecules"><%= f.label :macromolecules, "macromolecules" %>
+        <%= f.select :macromolecules, options_for_select(0..30) %></div>
+        <div class="phagocytes"><%= f.label :phagocytes, "phagocytes" %>
+        <%= f.select :phagocytes, options_for_select(0..30) %></div>
+        <%= f.submit "submit points" %>
+      <% end %>
+    <% else %>
+      <h1> meta points dispensed. <br> continue to adaptive stage? </h1>
+      <ul>
+        <li>cytokines: <%= @stage.cytokines %></li>
+        <li>macromolecules: <%= @stage.macromolecules %></li>
+        <li>phagocytes: <%= @stage.phagocytes %></li><br>
+
+      <%= form_for @stage, {
+        url: system_stage_path(@system, @stage), action: "update"
+      } do |f| %>
+        <div="clicks"><%= f.hidden_field :name, :value => "adaptive" %>
+        <%= f.hidden_field :meta_points, :value => 10 %>
+        <%= f.submit "continue", class: "button" %></div="clicks">
+      <% end %>
+      <%= form_for @system, {
+        url: system_path(@system), action: "update"
+      } do |f| %>
+        <div="clicks"><%= f.hidden_field :meta_points, :value => 30 %>
+        <%= f.submit "reset", class: "button" %></div="clicks">
+      <% end %>
+    <% end %>
+   </div>
+  </div>

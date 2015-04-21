@@ -10,8 +10,14 @@ end
 
 FactoryGirl.define do
 	factory :system do
-		user
+    turn
 	end
+end
+
+FactoryGirl.define do
+  factory :turn do
+    system
+  end
 end
 
 FactoryGirl.define do

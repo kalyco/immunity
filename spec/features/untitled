@@ -1,0 +1,18 @@
+require "rails_helper"
+
+feature "user dispenses meta points" do
+  let(:stage) { FactoryGirl.create(:stage) }
+
+  scenario "starting turn is random for virus or system" do
+    sign_in stage.system.user
+    visit system_path(stage.system)
+
+    select 8, from: "cytokines"
+    select 9, from: "macromolecules"
+    select 13, from: "phagocytes"
+    click_button "submit points"
+    click_button "continue"
+
+    expect(page).to have_content()
+  end
+end

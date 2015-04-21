@@ -18,23 +18,24 @@ class CellsController < ApplicationController
         @cell = Cell.new(system: system)
         @cell.split
     end
-    if @cell.save
-      system.meta_points -= params["new cells"].to_i
-      system.save
-      flash[:notice] = "created #{params["new cells"].to_i} new cells"
-      redirect_to system_path(system)
+      if @cell.save
+        system.meta_points -= params["new cells"].to_i
+        system.save
+        flash[:notice] = "created #{params["new cells"].to_i} new cells"
+        redirect_to system_path(system)
+      else
+        render :new
+      end
     else
-      render :new
-    end
-  else
-    @cell = Cell.new(system_id: params[:system_id])
-    @cell.split
-    if @cell.save
-      flash[:notice] = 'cell created'
-      redirect_to system_path(system)
-    else
-      flash[:notice] = 'cell not created.'
-      render :new
+      @cell = Cell.new(system_id: params[:system_id])
+      @cell.split
+      if @cell.save
+        flash[:notice] = 'cell created'
+        redirect_to system_path(system)
+      else
+        flash[:notice] = 'cell not created.'
+        render :new
+      end
     end
   end
 
@@ -51,7 +52,4 @@ class CellsController < ApplicationController
       redirect_to systems_path(@system)
     end
   end
-
-  private
-
 end

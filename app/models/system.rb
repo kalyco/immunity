@@ -25,6 +25,7 @@ class System < ActiveRecord::Base
       return points
       end
     end
+    return points
   end
 
   def pyro_turn

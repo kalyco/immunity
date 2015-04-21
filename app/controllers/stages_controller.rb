@@ -9,19 +9,12 @@ class StagesController < ApplicationController
     @system = System.find(params[:system_id])
     @stage = Stage.find(params[:id])
     @system = @stage.system
-    # respond_to do |format|
     if @stage.update(stage_params)
       @system.meta_score
-      flash[:notice] = "updated"
       redirect_to system_path(@stage.system)
-      # format.html { redirect_to :back, notice: "We heard your save!" }
-      # format.json { render json: stage }
     else
-      # format.html { redirect_to :back }
-      # format.json { render json: stage.errors, status: :unprocessable_entity }
       flash[:notice] = "not updated"
       render :edit
-    # end
     end
   end
 

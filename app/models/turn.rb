@@ -7,25 +7,35 @@ class Turn < ActiveRecord::Base
   def first
     if self.player == nil
       self.player = PICK.sample
-      if self.player == "system"
-        self.system.meta_points = 10
-        self.save
+      if system?
+        award_meta_points
       end
+      self.save!
     end
     self.player
   end
 
   def next_turn
-    if self.player == PICK[0]
+    if system?
       self.player = PICK[1]
-      self.system.meta_points = 10
-      self.save
-    else self.player = PICK[0]
+      award_meta_points
+    else
+      self.player = PICK[0]
     end
+    self.save!
   end
 
   def extra_turn
-    next_turn
-    next_turn
+    award_meta_points
+  end
+
+  def system?
+    self.player == PICK[0]
+  end
+
+  protected
+  def award_meta_points
+    self.system.meta_points += 10
+    self.system.save!
   end
 end
