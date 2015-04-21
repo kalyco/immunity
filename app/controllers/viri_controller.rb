@@ -1,9 +1,8 @@
 class ViriController < ApplicationController
 
   def index
-    binding.pry
-    @system = System.find(params[:id])
-    @viruses = Virus.where(system: @system)
+    @system = System.find(params[:system_id])
+    @viri = Virus.where(system: @system)
   end
 
   def new

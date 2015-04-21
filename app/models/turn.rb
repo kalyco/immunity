@@ -5,14 +5,27 @@ class Turn < ActiveRecord::Base
   PICK = ["virus", "system"]
 
   def first
-    self.player = PICK.sample
+    if self.player == nil
+      self.player = PICK.sample
+      if self.player == "system"
+        self.system.meta_points = 10
+        self.save
+      end
+    end
+    self.player
   end
 
-  def next
+  def next_turn
     if self.player == PICK[0]
       self.player = PICK[1]
+      self.system.meta_points = 10
+      self.save
     else self.player = PICK[0]
     end
   end
-end
 
+  def extra_turn
+    next_turn
+    next_turn
+  end
+end

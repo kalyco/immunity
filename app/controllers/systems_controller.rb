@@ -6,6 +6,7 @@ class SystemsController < ApplicationController
     @cells = Cell.where(system: @system)
     @viri = Virus.where(system: @system)
     @stage = @system.stage
+    @first = @system.turn.first
   end
 
   def new

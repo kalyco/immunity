@@ -17,8 +17,6 @@ class Virus < ActiveRecord::Base
         host.status = "marked"
       end
     self.save
-    else nil
-    end
   end
 end
 
@@ -45,7 +43,8 @@ def cycle(status)
         self.stage = "latent"
         self.cell.status = "antigen"
         self.stage_order = 0
-      end
+    end
     self.save
   end
+end
 end

@@ -9,18 +9,30 @@ class System < ActiveRecord::Base
 	validates_presence_of :user
 
   def meta_score
-    points = "you have #{self.meta_points} meta points to spend."
-    if self.meta_points == 30
-      self.meta_points -= (stage.cytokines + stage.phagocytes + stage.macromolecules)
-      stage = Stage.find_by(system: self)
-      self.save
-      if self.meta_points != 0
-        reset
-      end
+    if self.stage.name == "adaptive"
+      nil
     else
-      reset
-    return points
+      points = "you have #{self.meta_points} meta points to spend."
+      if self.meta_points == 30
+        self.meta_points -= (stage.cytokines + stage.phagocytes + stage.macromolecules)
+        stage = Stage.find_by(system: self)
+        self.save
+        if self.meta_points != 0
+          reset
+        end
+      else
+        reset
+      return points
+      end
+    end
   end
+
+  def pyro_turn
+    if self.pyrogenation >= 10
+      self.next_turn = "system"
+      self.pyrogenation -= 10
+      self.save
+    end
   end
 
   def balance_score
@@ -34,5 +46,12 @@ class System < ActiveRecord::Base
     self.stage.macromolecules = 0
     self.stage.phagocytes = 0
     self.save
+  end
+
+  def cell_creation(num)
+    system = System.find(params[:id])
+    num.times do
+      Cell.create(system: system)
+    end
   end
 end

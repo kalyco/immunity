@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150420190937) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "volatility"
-    t.boolean  "volatile",   default: false
+    t.boolean  "volatile"
   end
 
   create_table "stages", force: :cascade do |t|
