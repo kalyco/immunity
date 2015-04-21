@@ -1,11 +1,12 @@
 require "rails_helper"
 
 feature "user begins adaptive phase" do
-  # stage = FactoryGirl.create(:stage)
+  scenario "user moves from innate to adaptive" do
+    user = FactoryGirl.create(:user)
 
-  pending "user adds meta points to system" do
-    sign_in stage.system.user
-    visit system_path(stage.system)
+    sign_in user
+    click_button "new game"
+    click_button "initialize immune system"
 
     select 8, from: "cytokines"
     select 9, from: "macromolecules"
@@ -13,6 +14,6 @@ feature "user begins adaptive phase" do
     click_button "submit points"
     click_button "continue"
 
-    expect(page).to have_content("entering adaptive phase")
+    expect(page).to have_content("system is currently uncompromised")
   end
 end

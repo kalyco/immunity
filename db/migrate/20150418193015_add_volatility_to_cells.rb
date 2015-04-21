@@ -3,6 +3,6 @@ class AddVolatilityToCells < ActiveRecord::Migration
     add_column :cells, :volatility, :boolean
   end
   def down
-    remove_column :cells, :volaility
+    remove_column :cells, :volatility
   end
 end
