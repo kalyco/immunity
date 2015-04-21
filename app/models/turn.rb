@@ -34,6 +34,7 @@ class Turn < ActiveRecord::Base
   end
 
   protected
+
   def award_meta_points
     self.system.meta_points += 10
     self.system.save!
