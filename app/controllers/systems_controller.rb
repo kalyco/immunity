@@ -1,5 +1,6 @@
 class SystemsController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_innate_stage, only: :show
 
   def show
     @system = System.find(params[:id])
@@ -47,7 +48,6 @@ class SystemsController < ApplicationController
     @stage = @system.stage
       if @system.update(system_params)
         @stage.reset
-        flash[:notice] = "updated"
         redirect_to system_path(@system)
     end
   end
@@ -64,6 +64,12 @@ class SystemsController < ApplicationController
   end
 
   private
+  def check_innate_stage
+    if params[:id]
+      @system = System.find(params[:id])
+      redirect_to system_innates_path(@system) if @system.stage.name == "innate"
+    end
+  end
 
   def system_params
     params.require(:system).permit(:stage, :meta_points, :memory)

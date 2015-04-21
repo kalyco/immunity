@@ -4,7 +4,7 @@ feature "user starts game" do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  scenario "user signs in and creates a new System" do
+  scenario "user signs in and creates a new system" do
     sign_in user
     visit root_path
     click_button "new game"

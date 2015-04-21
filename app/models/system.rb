@@ -18,13 +18,12 @@ class System < ActiveRecord::Base
         stage = Stage.find_by(system: self)
         self.save
         if self.meta_points != 0
-          reset
         end
       else
         reset
-      return points
       end
     end
+    return points
   end
 
   def pyro_turn
