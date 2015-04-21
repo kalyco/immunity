@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "user begins adaptive phase" do
-  let(:stage) { FactoryGirl.create(:stage) }
+  # stage = FactoryGirl.create(:stage)
 
   pending "user adds meta points to system" do
     sign_in stage.system.user

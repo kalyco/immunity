@@ -6,10 +6,4 @@ class Stage < ActiveRecord::Base
 	validates :phagocytes, numericality: { less_than_or_equal_to: 30 }
 	validates :macromolecules, numericality: { less_than_or_equal_to: 30 }
 
-  def reset
-    self.cytokines = 0
-    self.phagocytes = 0
-    self.macromolecules = 0
-    self.save
-  end
 end

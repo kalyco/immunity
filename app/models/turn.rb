@@ -5,7 +5,7 @@ class Turn < ActiveRecord::Base
   PICK = ["virus", "system"]
 
   def first
-    if self.player == nil
+    if self.player == nil && self.system.stage.name != "innate"
       self.player = PICK.sample
       if system?
         award_meta_points

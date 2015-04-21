@@ -1,28 +1,24 @@
 class System < ActiveRecord::Base
 	belongs_to :user
-  has_one :turn
-	has_many :viri
-	has_many :cells
-	has_one :stage
+  has_one :turn, dependent: :destroy
+	has_many :viri, dependent: :destroy
+	has_many :cells, dependent: :destroy
+	has_one :stage, dependent: :destroy
 
   validates :meta_points, numericality: { greater_than_or_equal_to: 0 }
 	validates_presence_of :user
 
   def meta_score
-    if self.stage.name == "adaptive"
-      nil
-    else
+    if self.stage.name == "innate"
       points = "you have #{self.meta_points} meta points to spend."
-      if self.meta_points == 30
-        self.meta_points -= (stage.cytokines + stage.phagocytes + stage.macromolecules)
-        stage = Stage.find_by(system: self)
-        self.save
-        if self.meta_points != 0
-        end
-      else
+      stage = Stage.find_by(system: self)
+      total = stage.cytokines + stage.phagocytes + stage.macromolecules
+      self.meta_points -= (total)
+      self.save
+      end
+      if self.meta_points > 0 || total != 30
         reset
       end
-    end
     return points
   end
 
@@ -45,6 +41,7 @@ class System < ActiveRecord::Base
     self.stage.macromolecules = 0
     self.stage.phagocytes = 0
     self.save
+    self.stage.save
   end
 
   def cell_creation(num)

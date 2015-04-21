@@ -10,7 +10,7 @@ end
 
 FactoryGirl.define do
 	factory :system do
-    turn
+		user
 	end
 end
 
@@ -28,3 +28,4 @@ FactoryGirl.define do
     macromolecules 0
   end
 end
+

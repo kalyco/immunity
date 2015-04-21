@@ -1,7 +1,6 @@
 require "rails_helper"
 
 feature "user starts game" do
-
   let(:user) { FactoryGirl.create(:user) }
 
   scenario "user signs in and creates a new system" do
