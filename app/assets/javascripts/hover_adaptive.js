@@ -21,4 +21,3 @@ e.onmouseover = function() {
 e.onmouseout = function() {
   document.getElementById('popup2').style.display = 'none';
 }
-

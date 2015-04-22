@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420190937) do
+ActiveRecord::Schema.define(version: 20150422000012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,10 @@ ActiveRecord::Schema.define(version: 20150420190937) do
     t.datetime "updated_at"
     t.boolean  "volatility"
     t.boolean  "volatile"
+    t.integer  "virus_id"
   end
+
+  add_index "cells", ["virus_id"], name: "index_cells_on_virus_id", unique: true, using: :btree
 
   create_table "stages", force: :cascade do |t|
     t.integer  "system_id",                         null: false
@@ -85,6 +88,10 @@ ActiveRecord::Schema.define(version: 20150420190937) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stage_order", default: 0
+    t.integer  "cell_id"
+    t.string   "cycle"
   end
+
+  add_index "viri", ["cell_id"], name: "index_viri_on_cell_id", unique: true, using: :btree
 
 end

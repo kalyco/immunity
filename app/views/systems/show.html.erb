@@ -18,6 +18,7 @@
     <h1> system is currently <%= @system.status %> </h1>
     <% if @first == "system" %>
       <h1> you have <%= @system.meta_points %> meta points to spend </h1>
+      <%= button_to "system turn", system_path(@system), action: :update %>
     <% else %>
      <h1><%= link_to "virus turn", system_viri_path(@system) %></h1>
     <% end %>
@@ -121,6 +122,5 @@
   </tr>
 </table>
 
-<%= link_to "attempt vaccination", system_viri_path(@system) %>
-
+<%= button_to "attempt vaccination", system_viri_path(@system) %>
 

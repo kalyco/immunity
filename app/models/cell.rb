@@ -9,7 +9,7 @@ class Cell < ActiveRecord::Base
 
   def split
     rando = [true, false]
-    self.volatile == rando.sample
+    self.volatile = rando.sample
     self.save
   end
 

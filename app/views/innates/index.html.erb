@@ -9,17 +9,17 @@
   <div class="large-12">
     <% if @system.meta_points == 30 %>
         <h2> innate stage initiated. viruses are attacking! </h2>
-        <h1><%= "#{@system.meta_score}" %></h1>
+        <h1><%= "#{@system.meta_score}" %></h1><br>
         <%= form_for @stage, {
         url: system_stage_path(@system, @stage), action: "update"
       } do |f| %>
-        <div class="cytokines"><%= f.label :cytokines, "cytokines" %>
-        <%= f.select :cytokines, options_for_select(0..30) %></div>
-        <div class="macromolecules"><%= f.label :macromolecules, "macromolecules" %>
-        <%= f.select :macromolecules, options_for_select(0..30) %></div>
-        <div class="phagocytes"><%= f.label :phagocytes, "phagocytes" %>
-        <%= f.select :phagocytes, options_for_select(0..30) %></div>
-        <%= f.submit "submit points" %>
+        <%= f.label :cytokines, "cytokines" %><br>
+        <%= f.select :cytokines, options_for_select(0..30) %>
+        <%= f.label :macromolecules, "macromolecules" %><br>
+        <%= f.select :macromolecules, options_for_select(0..30) %>
+        <%= f.label :phagocytes, "phagocytes" %><br>
+        <%= f.select :phagocytes, options_for_select(0..30) %>
+        <%= f.button "submit points" %>
       <% end %>
     <% else %>
       <h1> meta points dispensed. <br> continue to adaptive stage? </h1>
@@ -44,3 +44,25 @@
     <% end %>
    </div>
   </div>
+
+  <br><br>
+
+  <table>
+    <tr>
+      <th><div id="cytokines">balance points</div></th>
+      <div id="cyto" style="display: none">CONTROL: gives balance points</div>
+      <th><div id="macromolecules">memory</div></th>
+      <div id="macro" style="display: none">COMBO: creates antibody cells<br>gives memory</div>
+      <th><div id="phagocytes">volatility</div></th>
+      <div id="phago" style="display: none">AGGRO: removes volatile cells
+      <br> and equal number of viruses</div>
+    </tr>
+
+    <tr>
+      <td>moderates virus and cell numbers. more viruses than cells and the system becomes compromised.</td>
+      <td>necessary to win. normally raises after attacks. multiplies inflammation attack damage. 10 points per multiplier</td>
+      <td>cells have 50% to be volatile. volatile cells are at risk for viral subjugation</td>
+    </tr>
+  </table>
+
+

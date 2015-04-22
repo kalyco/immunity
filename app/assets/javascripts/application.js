@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require hover
+//= require hover_adaptive
+//= require hover_innate
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
