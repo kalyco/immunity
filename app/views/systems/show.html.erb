@@ -18,74 +18,85 @@
     <h1> system is currently <%= @system.status %> </h1>
     <% if @first == "system" %>
       <h1> you have <%= @system.meta_points %> meta points to spend </h1>
-      <a href="<%=system_path(@system)%>" class='button2'>system turn</a> %>
+      <a href="<%=system_path(@system)%>" class='button2'>system turn</a>
+
+    <br><br>
+    <% @system.turn.player = "virus" %>
+    <% @system.turn.save %>
+    <span class= "system_abilities">
+      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="to combat the enemy viruses. CAREFUL, though.
+        more cells risk greater subjugation from viruses."><strong><%= link_to "generate more B cells",
+        new_system_cell_path(@system) %> || </strong>
+      </span>
+      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
+        reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
+        system_path(@system), method: :PUT %> || </strong>
+      </span>
+      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
+      </span>
+    </span>
+
     <% else %>
     <a href="<%=system_viri_path(@system)%>" class='button1'>virus turn</a>
     <% end %>
-  </div>
+ </div>
 <div>
-<br><br>
 
-<% @system.turn.player = "virus" %>
-<% @system.turn.save %>
-<span class= "system_abilities">
-  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="to combat the enemy viruses. CAREFUL, though.
-    more cells risk greater subjugation from viruses."><strong><%= link_to "generate more B cells",
-    new_system_cell_path(@system) %> || </strong>
-  </span>
-  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
-    reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
-    system_path(@system), method: :PUT %> || </strong>
-  </span>
-  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
-  </span>
-</span>
+<div class= "show_tables">
+  <h1>system status</h1>
+  <table>
+    <tr>
+      <th>differentiation</th>
+      <th>memory</th>
+      <th>apoptosis</th>
+      <th>pyrogenation</th>
+      <th>balance points</th>
+      <th></th>
+    </tr>
+
+    <tr>
+      <td><%= @system.differentiation %></td>
+      <td><%= @system.memory %></td>
+      <td><%= "#{@system.apoptosis}" %></td>
+      <td><%= "#{@system.pyrogenation}" %></td>
+      <td><%= "#{@system.balance_points}" %></td>
+    </tr>
+  </table>
+  </div>
+
+  <div id="system_chart" style="width:560px; height:300px;">
+    <div id="differentiation"><%= @system.differentiation %>
+    </div>
+    <div id="turn"><%= @system.turn %>
+    </div>
+  </div>
 
 
-<h1>system status</h1>
-<table>
-  <tr>
-    <th>differentiation</th>
-    <th>memory</th>
-    <th>apoptosis</th>
-    <th>pyrogenation</th>
-    <th>balance points</th>
-    <th></th>
-  </tr>
+  <h1>cell state</h1>
+  <table>
+    <tr>
+      <th>cells</th>
+      <th>antigens</th>
+      <th>antibodies</th>
+      <th></th>
+    </tr>
 
-  <tr>
-    <td><%= @system.differentiation %></td>
-    <td><%= @system.memory %></td>
-    <td><%= "#{@system.apoptosis}" %></td>
-    <td><%= "#{@system.pyrogenation}" %></td>
-    <td><%= "#{@system.balance_points}" %></td>
-  </tr>
-</table>
-
-<h1>cell state</h1>
-<table>
-  <tr>
-    <th>cells</th>
-    <th>antigens</th>
-    <th>antibodies</th>
-    <th></th>
-  </tr>
-
-  <tr>
-    <td><%= @cells.count %></td>
-    <% antigens = 0 %>
-    <% antibodies = 0 %>
-    <% @cells.each do |cell| %>
-      <% if cell.status == "antigen" %>
-        <% antigens += 1 %>
-      <% elsif cell.status == "antibody" %>
-        <% antibodies += 1 %>
+    <tr>
+      <td><%= @cells.count %></td>
+      <% antigens = 0 %>
+      <% antibodies = 0 %>
+      <% @cells.each do |cell| %>
+        <% if cell.status == "antigen" %>
+          <% antigens += 1 %>
+        <% elsif cell.status == "antibody" %>
+          <% antibodies += 1 %>
+        <% end %>
       <% end %>
-    <% end %>
-    <td><%= "#{(antigens.to_f/@cells.count).to_i*100}%" %></td>
-    <td><%= "#{(antibodies.to_f/@cells.count).to_i*100}%" %></td>
-  </tr>
-</table>
+      <td><%= "#{(antigens.to_f/@cells.count).to_i*100}%" %></td>
+      <td><%= "#{(antibodies.to_f/@cells.count).to_i*100}%" %></td>
+    </tr>
+  </table>
+</div>
 
 <h1>viri cycle</h1>
   <table>

@@ -91,6 +91,9 @@ GEM
       sass (>= 3.3.0, < 3.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    hash-deep-merge (0.1.1)
+    highcharts-rails (4.1.5)
+      railties (>= 3.1)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -104,6 +107,9 @@ GEM
     json (1.8.2)
     launchy (2.4.3)
       addressable (~> 2.3)
+    lazy_high_charts (1.5.4)
+      bundler (>= 1.0)
+      hash-deep-merge
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -241,9 +247,11 @@ DEPENDENCIES
   faker
   figaro
   foundation-rails
+  highcharts-rails
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  lazy_high_charts
   pg
   pry-rails
   rails (= 4.2.1)

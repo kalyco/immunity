@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422184701) do
+ActiveRecord::Schema.define(version: 20150423190950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20150422184701) do
 
   add_index "cells", ["virus_id"], name: "index_cells_on_virus_id", unique: true, using: :btree
 
+  create_table "charts", force: :cascade do |t|
+    t.integer "system_id"
+    t.integer "turn_id"
+  end
+
+  add_index "charts", ["system_id", "turn_id"], name: "index_charts_on_system_id_and_turn_id", unique: true, using: :btree
+
   create_table "stages", force: :cascade do |t|
     t.integer  "system_id",                         null: false
     t.string   "name",           default: "innate"
@@ -40,6 +47,13 @@ ActiveRecord::Schema.define(version: 20150422184701) do
 
   add_index "stages", ["system_id"], name: "index_stages_on_system_id", unique: true, using: :btree
 
+  create_table "system_charts", force: :cascade do |t|
+    t.integer "system_id"
+    t.integer "turn_id"
+  end
+
+  add_index "system_charts", ["system_id", "turn_id"], name: "index_system_charts_on_system_id_and_turn_id", unique: true, using: :btree
+
   create_table "systems", force: :cascade do |t|
     t.integer  "meta_points",     default: 30
     t.integer  "user_id",                                   null: false
@@ -49,8 +63,8 @@ ActiveRecord::Schema.define(version: 20150422184701) do
     t.string   "status",          default: "uncompromised"
     t.integer  "balance_points",  default: 0
     t.integer  "differentiation", default: 0
-    t.integer  "apoptosis",       default: 1
-    t.integer  "pyrogenation",    default: 1
+    t.integer  "apoptosis",       default: 0
+    t.integer  "pyrogenation",    default: 0
     t.integer  "stage_order",     default: 0
   end
 

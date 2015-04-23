@@ -4,6 +4,7 @@ class System < ActiveRecord::Base
 	has_many :viri, dependent: :destroy
 	has_many :cells, dependent: :destroy
 	has_one :stage, dependent: :destroy
+  has_one :chart, dependent: :destroy
 
   validates :meta_points, numericality: { greater_than_or_equal_to: 0 }
 	validates_presence_of :user

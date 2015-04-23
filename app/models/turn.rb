@@ -1,6 +1,7 @@
 class Turn < ActiveRecord::Base
   belongs_to :system
   belongs_to :viri
+  has_one :chart, through: :system
 
   PICK = ["virus", "system"]
 
@@ -14,6 +15,17 @@ class Turn < ActiveRecord::Base
     end
     self.player
   end
+
+  def total
+    turn = 1
+    total = []
+    self.order.times do
+      total << turn
+      turn += 1
+    end
+    total
+  end
+
 
   def next_turn
     if system?
