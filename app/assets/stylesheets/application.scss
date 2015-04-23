@@ -100,20 +100,31 @@ img.main {
   font-family: $nexa-font;
 }
 
+select#macro_molecules {
+  align: center;
+}
+
+
 .hovering1 {
-  position: relative;
-  left: 300px;
+  float: left;
 }
 
 .hovering2 {
-  position: relative;
-  left: 600px;
+  text-align: center;
+  display: inline-block;
 }
+
+.hovering3 {
+  float: right;
+  text-align: right;
+}
+
 .sub_button {
   position: relative;
   left: 400px;
   top: 100px;
 }
+
  h1 h2 h3 {
   text-align: center;
  }
@@ -126,3 +137,6 @@ img.main {
  text_align: right;
  }
 
+label {
+  font-size: 200%;
+}

@@ -21,15 +21,15 @@
         <%= form_for @stage, {
         url: system_stage_path(@system, @stage), action: "update"
       } do |f| %>
-        <div data-dropdown="hover1", class="hovering" data-options="is_hover:true; hover_timeout:5000"><%= f.label :cytokines, "cytokines" %><br>
+        <div data-dropdown="hover1", class="hovering1" data-options="is_hover:true; hover_timeout:5000"><%= f.label :cytokines, "cytokines" %><br>
         <ul id="hover1" class="f-dropdown" data-dropdown-content>
         <%= f.select :cytokines, options_for_select(0..30) %>
         </ul></div>
-        <div data-dropdown="hover2" class= "hovering1" data-options="is_hover:true; hover_timeout:5000"><%= f.label :macromolecules, "macromolecules" %><br>
+        <div data-dropdown="hover2" class= "hovering2" data-options="is_hover:true; hover_timeout:5000"><%= f.label :macromolecules, "macromolecules" %><br>
         <ul id="hover2" class="f-dropdown" data-dropdown-content>
         <%= f.select :macromolecules, options_for_select(0..30) %>
         </ul></div>
-        <div data-dropdown="hover3" class= "hovering2" data-options="is_hover:true; hover_timeout:5000"><%= f.label :phagocytes, "phagocytes" %><br></div>
+        <div data-dropdown="hover3" class= "hovering3" data-options="is_hover:true; hover_timeout:5000"><%= f.label :phagocytes, "phagocytes" %><br></div>
         <ul id="hover3" class="f-dropdown" data-dropdown-content>
         <%= f.select :phagocytes, options_for_select(0..30) %>
         </ul>

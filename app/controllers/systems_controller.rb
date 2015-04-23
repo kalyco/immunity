@@ -56,7 +56,7 @@ class SystemsController < ApplicationController
       @system = System.find(params[:id])
       @system.destroy
       flash[:notice] = 'disease is immunodeficient. system shut down'
-      redirect_to root_path
+      redirect_to new_system_path
   end
 
   def user_system

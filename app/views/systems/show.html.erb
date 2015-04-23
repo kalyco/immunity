@@ -18,7 +18,7 @@
     <h1> system is currently <%= @system.status %> </h1>
     <% if @first == "system" %>
       <h1> you have <%= @system.meta_points %> meta points to spend </h1>
-      <%= button_to "system turn", system_path(@system), action: :update %>
+      <a href="<%=system_path(@system)%>" class='button2'>system turn</a> %>
     <% else %>
     <a href="<%=system_viri_path(@system)%>" class='button1'>virus turn</a>
     <% end %>

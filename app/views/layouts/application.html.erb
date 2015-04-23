@@ -19,21 +19,21 @@
 
     <div class="large-9 columns">
       <ul class="button-group right">
-    <%- if current_user -%>
+    <% if current_user %>
       <li class="link"><%= link_to 'sign out ', destroy_user_session_path, action: :delete %>&nbsp;</li>
     <% else %>
-      <li class="link"><%= link_to 'sign up', new_user_registration_path %>
+      <li class="link"><%= link_to 'sign up', new_user_registration_path %>&nbsp;
       </li>
-      <li class="link"><%= link_to 'sign in', new_user_session_path %>
+      <li class="link"><%= link_to 'sign in', new_user_session_path %>&nbsp;
       </li>
     <% end %>
-    <% if @cur_sys == nil %>
+    <% if @system.id == nil %>
       <li class="link"><%= link_to "new game", new_system_path(@system), controller: :systems, method: :get %>
       &nbsp;</li>
     <% else %>
-      <li class="link"><%= link_to "continue ", system_path(@cur_sys), method: :get %>&nbsp;</li>
+      <li class="link"><%= link_to "continue ", system_path(@system), method: :get %>&nbsp;</li>
       <li class="link"><%= link_to "restart", {
-        controller: :systems, action: :destroy, id: @cur_sys.id },
+        controller: :systems, action: :destroy, id: @system.id },
         method: :delete, data: { confirm: 'you sure? you can not recover your system.'
       } %></li>
     <% end %>
