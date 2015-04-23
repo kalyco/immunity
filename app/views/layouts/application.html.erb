@@ -3,9 +3,9 @@
 <head>
   <title>Immunity</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <%= javascript_include_tag "vendor/modernizr" %>
   <script src="js/vendor/jquery.js"></script>
-  <script src="js/foundation/foundation.tooltip.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -53,7 +53,6 @@
   <%= yield %>
 
   <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
   <%= yield :extra_footer %>
 

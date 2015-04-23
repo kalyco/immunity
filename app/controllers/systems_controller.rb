@@ -22,7 +22,7 @@ class SystemsController < ApplicationController
         100.times do
           Cell.create(system: @system)
         end
-        100.times do
+        50.times do
           Virus.create(system: @system)
         end
         stage = Stage.create(system: @system)

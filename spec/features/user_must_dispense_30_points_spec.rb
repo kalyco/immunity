@@ -5,7 +5,7 @@ feature "user must dispense exactly 30" do
     user = FactoryGirl.create(:user)
 
     sign_in user
-    click_button "new game"
+    click_link "new game"
     click_button "initialize immune system"
 
     select 20, from: "cytokines"

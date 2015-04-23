@@ -20,33 +20,27 @@
       <h1> you have <%= @system.meta_points %> meta points to spend </h1>
       <%= button_to "system turn", system_path(@system), action: :update %>
     <% else %>
-     <h1><%= link_to "virus turn", system_viri_path(@system) %></h1>
+    <a href="<%=system_viri_path(@system)%>" class='button1'>virus turn</a>
     <% end %>
   </div>
 <div>
+<br><br>
 
-<div id="parent"><%= link_to "generate more B cells",
-  new_system_cell_path(@system) %> ||
-  <div id='popup'
-    style="display: none"> to combat the enemy viruses. CAREFUL though.
-      more cells risk greater subjugation from viruses.
-  </div>
-<div id="parent1"><%= link_to "activate pyrogenation",
-  system_path(@system), method: :PUT %> ||
-  <div id='popup1'
-    style="display: none">
-    release pyrogens to induce fever. will reduce rate of
-    reproduction to both viruses and cells. ideal proliferation occurs
-    at 98.6º
-  </div>
+<% @system.turn.player = "virus" %>
+<% @system.turn.save %>
+<span class= "system_abilities">
+  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="to combat the enemy viruses. CAREFUL, though.
+    more cells risk greater subjugation from viruses."><strong><%= link_to "generate more B cells",
+    new_system_cell_path(@system) %> || </strong>
+  </span>
+  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
+    reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
+    system_path(@system), method: :PUT %> || </strong>
+  </span>
+  <span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
+  </span>
+</span>
 
-<div id="parent2"><%= link_to "initiate apoptosis",
-  system_cell_path(@system, @cells), action: :destroy %> ||
-  <div id='popup2'
-    style='display: none'>
-    programmed cell death. remove all antigenic cells.
-  </div>
-</div>
 
 <h1>system status</h1>
 <table>
@@ -117,5 +111,6 @@
 </tr>
 </table>
 
-<%= button_to "attempt vaccination", system_viri_path(@system) %>
-
+<%= form_for @system, {url: system_viri_path(@system)} do |f| %>
+  <%= f.button "attempt vaccination" %>
+<% end %>

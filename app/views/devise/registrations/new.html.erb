@@ -1,33 +1,37 @@
-<h2>Sign up</h2>
+<h2>sign up
+macromolecule</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.email_field :username, autofocus: true %>
+  <div class="row">
+    <div class="large-12 columns">
+    <%= f.text_field :username, autofocus: true, placeholder: "username" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
+  <div class="row">
+    <div class="large-12 columns">
+    <%= f.email_field :email, placeholder: "email" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="row">
+    <div class="large-12 columns">
     <% if @validatable %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", placeholder: "password" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="row">
+    <div class="large-12 columns">
+    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "confirm" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "sign up" %>
+    <%= f.button "sign up" %>
   </div>
 <% end %>
 

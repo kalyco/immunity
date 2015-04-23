@@ -55,9 +55,8 @@ end
 
 def sign_in(user)
   visit root_path
-  click_link "sign in
-macromolecule"
+  click_link "sign in"
   fill_in "Email", with: user.email
   fill_in "Password", with: user.password
-  click_button "Log in"
+  click_button "log in"
 end
