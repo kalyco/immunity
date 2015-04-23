@@ -5,6 +5,14 @@
       </ul>
     <% end %>
   <% end %>
+
+  <% if flash[:notice] %>
+  <div data-alert class="alert-box warning round">
+    please dispense 30 points.
+    <a href="#" class="close">&times;</a>
+  </div>
+  <% end %>
+
 <div class="row">
   <div class="large-12">
     <% if @system.meta_points == 30 %>
@@ -13,13 +21,21 @@
         <%= form_for @stage, {
         url: system_stage_path(@system, @stage), action: "update"
       } do |f| %>
-        <%= f.label :cytokines, "cytokines" %><br>
+        <div data-dropdown="hover1", class="hovering" data-options="is_hover:true; hover_timeout:5000"><%= f.label :cytokines, "cytokines" %><br>
+        <ul id="hover1" class="f-dropdown" data-dropdown-content>
         <%= f.select :cytokines, options_for_select(0..30) %>
-        <%= f.label :macromolecules, "macromolecules" %><br>
+        </ul></div>
+        <div data-dropdown="hover2" class= "hovering1" data-options="is_hover:true; hover_timeout:5000"><%= f.label :macromolecules, "macromolecules" %><br>
+        <ul id="hover2" class="f-dropdown" data-dropdown-content>
         <%= f.select :macromolecules, options_for_select(0..30) %>
-        <%= f.label :phagocytes, "phagocytes" %><br>
+        </ul></div>
+        <div data-dropdown="hover3" class= "hovering2" data-options="is_hover:true; hover_timeout:5000"><%= f.label :phagocytes, "phagocytes" %><br></div>
+        <ul id="hover3" class="f-dropdown" data-dropdown-content>
         <%= f.select :phagocytes, options_for_select(0..30) %>
-        <%= f.button "submit points" %>
+        </ul>
+        </div>
+        </div>
+        <div class="sub_button"><%= f.button "submit points" %></div>
       <% end %>
     <% else %>
       <h1> meta points dispensed. <br> continue to adaptive stage? </h1>
@@ -46,23 +62,19 @@
   </div>
 
   <br><br>
-
   <table>
+    <h6>**hover over each to read more**</h6>
     <tr>
-      <th><div id="cytokines">balance points</div></th>
-      <div id="cyto" style="display: none">CONTROL: gives balance points</div>
-      <th><div id="macromolecules">memory</div></th>
-      <div id="macro" style="display: none">COMBO: creates antibody cells<br>gives memory</div>
-      <th><div id="phagocytes">volatility</div></th>
-      <div id="phago" style="display: none">AGGRO: removes volatile cells
-      <br> and equal number of viruses</div>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="CYTO::CONTROL:: try to avoid system compromise if virus number get out of hand">balance</span></th>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="MACRO ::COMBO:: memory is often crucial for successful vaccinations">memory</span></th>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="PHAGO ::AGGRO:: removes volatile cells and removes equal number of viruses">volatility</span>
+      </th>
     </tr>
 
     <tr>
       <td>moderates virus and cell numbers. more viruses than cells and the system becomes compromised.</td>
-      <td>necessary to win. normally raises after attacks. multiplies inflammation attack damage. 10 points per multiplier</td>
+      <td>increases after attacks. multiplies inflammation attack damage. 10 points per multiplier</td>
       <td>cells have 50% to be volatile. volatile cells are at risk for viral subjugation</td>
     </tr>
   </table>
-
 

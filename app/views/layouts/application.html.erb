@@ -2,8 +2,10 @@
 <html>
 <head>
   <title>Immunity</title>
-  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag "vendor/modernizr" %>
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation/foundation.tooltip.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -11,19 +13,34 @@
   <nav class="top-bar">
     <ul class="title-area">
       <li class="name">
-        <h1><a href="/">Immunity</a></h1>
+        <h1><a href="/">immunity</a></h1>
       </li>
     </ul>
 
-    <section class="top-bar-section">
-      <ul class="right">
-        <%- if current_user -%>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, action: :delete %></li>
-        <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
-        <%- end -%>
+    <div class="large-9 columns">
+      <ul class="button-group right">
+    <%- if current_user -%>
+      <li class="link"><%= link_to 'sign out ', destroy_user_session_path, action: :delete %>&nbsp;</li>
+    <% else %>
+      <li class="link"><%= link_to 'sign up', new_user_registration_path %>
+      </li>
+      <li class="link"><%= link_to 'sign in', new_user_session_path %>
+      </li>
+    <% end %>
+    <% if @cur_sys == nil %>
+      <li class="link"><%= link_to "new game", new_system_path(@system), controller: :systems, method: :get %>
+      &nbsp;</li>
+    <% else %>
+      <li class="link"><%= link_to "continue ", system_path(@cur_sys), method: :get %>&nbsp;</li>
+      <li class="link"><%= link_to "restart", {
+        controller: :systems, action: :destroy, id: @cur_sys.id },
+        method: :delete, data: { confirm: 'you sure? you can not recover your system.'
+      } %></li>
+    <% end %>
       </ul>
+    </div>
+  </div>
+
     </section>
   </nav>
 
@@ -36,6 +53,10 @@
   <%= yield %>
 
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
   <%= yield :extra_footer %>
+
 </body>
 </html>
+

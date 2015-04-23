@@ -1,10 +1,67 @@
-<p> welcome to immunity </p>
-<% if @cur_sys == nil %>
-  <p><%= button_to "new game", new_system_path(@system), controller: :systems, method: :get %></p>
-<% else %>
-  <p><%= button_to "continue", system_path(@cur_sys), method: :get %></p><br>
-  <%= button_to "restart game", {
-  	controller: :systems, action: :destroy, id: @cur_sys.id },
-  	method: :delete, data: { confirm: 'you sure? you can not recover your system.'
-  } %>
-<% end %>
+      <div class="row">
+        <div class="large-4 columns">
+          <img src="http://i.imgur.com/LRFSK19.jpg">
+        </div>
+        <div class="large-8 columns">
+          <br><h3>game rules:</h3>
+          <div class="row">
+            <div class="innate">
+            <br>
+            <h4>innate stage</h4>
+              <p>player starts with 30 metabolism points to dispense. <br>can be placed towards cytokines, macromolecules, or phagocytes:</p>
+            </div>
+            <div class="cytokine-step">
+              <p><strong>cytokines: balance</strong><br> try to avoid system compromise <br> if virus numbers get out of hand <br> ( if virus count > cell count )</p>
+            </div>
+            <div class="macromolecule-step">
+              <p><strong>macromolecules: memory</strong><br> adds memory <br> often necessary to win <br> multiplies cell attack damage</p>
+            </div>
+            <div class="phagocyte-step">
+              <p><strong>phagocytes: volatility</strong><br> removes volatile cells<br> volatile cells are at risk <br> for viral subjugation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="adaptive-step">
+          <h4>adaptive stage</h4>
+          <p><h5 strong>system turn</h5>
+          10 meta points/turn<br>
+          can dispense towards apoptosis (volatile cell death),<br>
+          generation (randomly create cells),<br> pyrogenation (extra turn points),<br> or response (immune virus attack)
+          <br> virus cycle attacks are based on cell volatility.</p>
+
+
+        </div>
+        <div class="bottom">
+          <img src="http://i.imgur.com/GJtNuMi.jpg">
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="large-12 columns">
+          <img class="main" src="http://i.imgur.com/RevH8mw.jpg">
+
+          <hr>
+        </div>
+      </div>
+
+
+      <footer class="row">
+        <div class="large-12 columns">
+          <hr/>
+          <div class="row">
+            <div class="large-6 columns">
+              <p>©nopenopenope.</p>
+            </div>
+            <div class="large-6 columns">
+              <ul class="inline-list right">
+                <li><a href="https://github.com/kalyco">contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>

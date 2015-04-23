@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :viri
   end
   devise_for :users
+  resources :users, only: [:index, :show, :update]
 end

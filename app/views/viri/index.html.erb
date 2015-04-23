@@ -4,7 +4,7 @@
      <% virus.cycle_method %>
     <% end %>
   <% end %>
-  <%= link_to "BACK TO THE SYSTEM", system_path(@system) %>
+  <%= link_to "BACK TO THE SYSTEM", system_path(@system), method: "get" %>
   <% @system.turn.next_turn unless @system.turn.player == "system" %>
 
   <h1>viri cycle</h1>

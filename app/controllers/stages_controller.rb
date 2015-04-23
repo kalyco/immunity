@@ -13,7 +13,7 @@ class StagesController < ApplicationController
       @system.meta_score
       redirect_to system_path(@stage.system)
     else
-      flash[:notice] = "please dispense 30 points"
+      flash[:notice] = " "
       redirect_to system_path(@stage.system)
     end
   end

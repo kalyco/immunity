@@ -19,3 +19,18 @@
 
 $(function(){ $(document).foundation(); });
 
+$(document).ready(function () {
+        $(document).foundation('orbit', {
+        animation: 'fade',
+        timer_speed: 3000,
+        pause_on_hover: false,
+        resume_on_mouseout: false,
+        animation_speed: 300
+    });
+
+    $(document).foundation();
+
+    $(".orbit-timer").hide();
+    $(".orbit-slide-number").hide();
+
+});
