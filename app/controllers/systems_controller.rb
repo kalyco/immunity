@@ -29,6 +29,7 @@ class SystemsController < ApplicationController
         stage = Stage.create(system: @system)
         turn = Turn.create(system: @system)
         turn.save
+        turn.first
         chart = Chart.create(system: @system, turn: turn)
         chart.save
         flash[:notice] = "this one's name is
@@ -43,6 +44,10 @@ class SystemsController < ApplicationController
 
   def edit
     @system = user_system
+    @cells = Cell.where(system: @system)
+    @cell = Cell.new
+    @turn = Turn.find_by(system: @system)
+    render 'edit_page'
   end
 
   def update

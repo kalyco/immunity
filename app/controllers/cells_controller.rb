@@ -22,7 +22,7 @@ class CellsController < ApplicationController
         system.meta_points -= params["new cells"].to_i
         system.save
         flash[:notice] = "created #{params["new cells"].to_i} new cells"
-        redirect_to system_path(system)
+        redirect_to edit_system_path(system)
       else
         render :new
       end

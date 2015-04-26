@@ -20,3 +20,21 @@ $(function() {
     }]
   });
 });
+
+// $(function() {
+//   $('#cell_chart').highcharts({
+//       chart: {
+//           type: 'bar'
+//       },
+//     title: {
+//       text: "cell count"
+//     },
+//     xAxis: {
+//       values: sysTurn
+//     },
+//     series: [{
+//       data: cellArray
+//     }]
+//   });
+// });
+

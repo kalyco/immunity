@@ -132,8 +132,12 @@ select#macro_molecules {
   text-align: center;
  }
 
- span.system_abilities {
- text_align: right;
+.system_abilities {
+  padding-top: 150px;
+  position: relative;
+  left: 500px;
+  width: 700px;
+
  }
 
 label {
@@ -155,3 +159,15 @@ label {
   line-height: 26.3999996185303px;
 }
 
+.main-section {
+  text-align: center;
+}
+
+li {
+  text-align: center
+}
+
+#site-title {
+  position: fixed;
+  left: 50px;
+}

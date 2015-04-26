@@ -16,29 +16,12 @@
     <% end %>
 
     <h1> system is currently <%= @system.status %> </h1>
-    <% if @first == "system" %>
+    <% if @system.turn.player == "system" %>
       <h1> you have <%= @system.meta_points %> meta points to spend </h1>
-      <a href="<%=system_path(@system)%>" class='button2'>system turn</a>
-
-    <br><br>
-    <% @system.turn.player = "virus" %>
-    <% @system.turn.save %>
-    <span class= "system_abilities">
-      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="to combat the enemy viruses. CAREFUL, though.
-        more cells risk greater subjugation from viruses."><strong><%= link_to "generate more B cells",
-        new_system_cell_path(@system) %> || </strong>
-      </span>
-      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
-        reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
-        system_path(@system), method: :PUT %> || </strong>
-      </span>
-      <span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
-      </span>
-    </span>
-
-    <% else %>
-    <a href="<%=system_viri_path(@system)%>" class='button1'>virus turn</a>
+      <%= link_to "system turn", edit_system_path(@system), class: "button2" %>
     <% end %>
+    <br><br>
+
  </div>
 <div>
 

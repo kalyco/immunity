@@ -61,4 +61,26 @@ class System < ActiveRecord::Base
       Cell.create(system: system)
     end
   end
+
+  def cell_count
+    arr = []
+    total = 1
+    cells = Cell.where(system: self)
+    cells.count.times do
+      arr << total
+      total += 1
+    end
+    arr
+  end
+
+  def turn_count
+    arr = []
+    total = 1
+    turn = Turn.find_by(system: self)
+    turn.order.times do
+      arr << total
+      total += 1
+    end
+  arr
+  end
 end
