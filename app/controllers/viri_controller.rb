@@ -3,6 +3,7 @@ class ViriController < ApplicationController
   def index
     @system = System.find(params[:system_id])
     @viri = Virus.where(system: @system)
+    @turn = @system.turn
   end
 
   def new

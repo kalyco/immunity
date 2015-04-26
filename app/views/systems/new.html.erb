@@ -1,1 +1,13 @@
-<p><%= button_to "initialize immune system", systems_path %></p>
+<div class="new_page">
+  <div class= "initialize">
+    <h3>create new game?</h3>
+  </div>
+  <div class="crosshair"><%= form_for @system do |f| %>
+    <%= f.submit " ", type: :image, src: "http://i.imgur.com/C27f8aR.jpg" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+

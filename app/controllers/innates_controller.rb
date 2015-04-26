@@ -6,6 +6,16 @@ class InnatesController < ApplicationController
     @cells = Cell.where(system: @system)
     @viri = Virus.where(system: @system)
     @stage = @system.stage
-    @first = @system.turn.first
+    @evens = evens
+  end
+
+  def evens
+    x = 0
+    a = []
+    16.times do
+      a << x
+      x += 2
+    end
+    a
   end
 end

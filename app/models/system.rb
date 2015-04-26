@@ -31,11 +31,6 @@ class System < ActiveRecord::Base
     end
   end
 
-  def balance_score
-    if self.stage.cytokines != 0
-    end
-  end
-
   def reset
     self.meta_points = 30
     self.stage.cytokines = 0
@@ -43,6 +38,21 @@ class System < ActiveRecord::Base
     self.stage.phagocytes = 0
     self.save
     self.stage.save
+  end
+
+  def innate_turn
+    cells = Cell.where(system: self, volatile: true)
+    stage = self.stage
+    phago_points = stage.phagocytes
+    self.balance_points = stage.cytokines
+    self.memory = stage.macromolecules/2
+    cells.each do |cell|
+      if phago_points > 0
+        cell.destroy
+        phago_points -= 1
+      end
+    end
+    self.save
   end
 
   def cell_creation(num)

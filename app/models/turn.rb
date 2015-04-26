@@ -26,13 +26,12 @@ class Turn < ActiveRecord::Base
     total
   end
 
-
   def next_turn
-    if system?
-      self.player = PICK[1]
+    if system? == true
+      self.player = PICK[0]
       award_meta_points
     else
-      self.player = PICK[0]
+      self.player = PICK[1]
     end
     self.save!
   end
@@ -42,7 +41,10 @@ class Turn < ActiveRecord::Base
   end
 
   def system?
-    self.player == PICK[0]
+    if self.player == "system"
+      true
+    else false
+    end
   end
 
   protected

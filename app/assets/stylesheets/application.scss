@@ -104,7 +104,6 @@ select#macro_molecules {
   align: center;
 }
 
-
 .hovering1 {
   float: left;
 }
@@ -140,3 +139,19 @@ select#macro_molecules {
 label {
   font-size: 200%;
 }
+
+.new_page {
+  text-align: center;
+  padding-top: 150px;
+  cursor: crosshair;
+}
+
+.initialize {
+  font-family: 'Andale Mono', AndaleMono, monospace;
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.3999996185303px;
+}
+

@@ -27,7 +27,7 @@
         </ul></div>
         <div data-dropdown="hover2" class= "hovering2" data-options="is_hover:true; hover_timeout:5000"><%= f.label :macromolecules, "macromolecules" %><br>
         <ul id="hover2" class="f-dropdown" data-dropdown-content>
-        <%= f.select :macromolecules, options_for_select(0..30) %>
+        <%= f.select :macromolecules, options_for_select(@evens) %>
         </ul></div>
         <div data-dropdown="hover3" class= "hovering3" data-options="is_hover:true; hover_timeout:5000"><%= f.label :phagocytes, "phagocytes" %><br></div>
         <ul id="hover3" class="f-dropdown" data-dropdown-content>
@@ -38,10 +38,8 @@
         <div class="sub_button"><%= f.button "submit points" %></div>
       <% end %>
     <% else %>
+      <% @system.innate_turn %>
       <h1> meta points dispensed. <br> continue to adaptive stage? </h1>
-        <h4>cytokines: <%= @stage.cytokines %></h4>
-        <h4>macromolecules: <%= @stage.macromolecules %></h4>
-        <h4>phagocytes: <%= @stage.phagocytes %></h4><br>
 
       <%= form_for @stage, {
         url: system_stage_path(@system, @stage), action: "update"
@@ -64,9 +62,21 @@
   <table>
     <h6>**hover over each to read more**</h6>
     <tr>
-      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="CYTO::CONTROL:: try to avoid system compromise if virus number get out of hand">balance</span></th>
-      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="MACRO ::COMBO:: memory is often crucial for successful vaccinations">memory</span></th>
-      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="PHAGO ::AGGRO:: removes volatile cells and removes equal number of viruses">volatility</span>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="CYTO::CONTROL:: try to avoid system compromise if virus number get out of hand">balance
+      <% if @system.balance_points > 0 %>
+        <%= ": #{@system.balance_points}" %>
+      <% end %>
+      </span></th>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="MACRO ::COMBO:: memory is often crucial for successful vaccinations">memory
+      <% if @system.memory > 0 %>
+        <%= ": #{@system.memory}" %>
+      <% end %>
+      </span></th>
+      <th><span data-tooltip data-options="hover_delay: 50;" class="tip-top" title="PHAGO ::AGGRO:: removes equal number of volatile cells">volatility
+      <% if @stage.phagocytes != 0 %>
+        <%= ": #{@stage.phagocytes} cells removed" %>
+      <% end %>
+      </span>
       </th>
     </tr>
 

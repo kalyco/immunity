@@ -1,36 +1,42 @@
-<% if @system.turn.player == "virus" %>
-    <% @viri.each do |virus| %>
-      <% virus.cycle_choice %>
-     <% virus.cycle_method %>
-    <% end %>
+  <% if @turn.system? == false %>
+    <% @viri.next_cycle %>
+    <% @turn.next_turn %>
+    <div data-alert class="alert-box info radius">
+    viri progress through cycles.
+    <a href="#" class="close">&times;</a>
+    </div>
   <% end %>
+
   <%= link_to "BACK TO THE SYSTEM", system_path(@system), method: "get" %>
   <% @system.turn.next_turn unless @system.turn.player == "system" %>
 
-  <h1>viri cycle</h1>
   <table>
     <tr>
       <th>viri count</th>
       <th>lysogenic</th>
       <th>lytic</th>
+      <th>latent</th>
       <th></th>
     </tr><tr>
 
   <td><%= @viri.count %></td>
   <% lysogenic = 0 %>
   <% lytic = 0 %>
+  <% latent = 0 %>
   <% @viri.each do |virus| %>
-    <% if virus.cycle = "lytic" %>
+    <% if virus.status = "lytic" %>
     <%  lytic += 1 %>
-    <% elsif virus.cycle = "lysogenic" %>
+    <% elsif virus.status = "lysogenic" %>
     <%  lysogenic += 1 %>
+    <% elsif virus.status = "latent" %>
+    <%  latent += 1 %>
     <% end %>
   <% end %>
   <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
   <td><%= "#{(lytic/@viri.count)*100}%" %></td>
+  <td><%= "#{(latent/@viri.count)*100}%" %></td>
 </tr>
 </table>
 
-<div id="pie"><%= pie_chart @viri.group(:cycle).count %>
-<%= pie_chart @viri.group(:status).count %></div>
-
+<div id="pie"><%= pie_chart @viri.group(:status).count %>
+<%= pie_chart @viri.group(:cycle).count %>/<div>

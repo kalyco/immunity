@@ -8,9 +8,7 @@ class SystemsController < ApplicationController
     @cells = Cell.where(system: @system)
     @viri = Virus.where(system: @system)
     @stage = @system.stage
-    @first = @system.turn.first
     @turn = Turn.where(system: @system)
-    @chart = Chart.find(@system)
   end
 
   def new
@@ -60,7 +58,7 @@ class SystemsController < ApplicationController
       @system = System.find(params[:id])
       @system.destroy
       flash[:notice] = 'disease is immunodeficient. system shut down'
-      redirect_to new_system_path
+      redirect_to root_path
   end
 
   def user_system

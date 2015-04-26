@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423190950) do
+ActiveRecord::Schema.define(version: 20150425225209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20150423190950) do
     t.datetime "updated_at"
     t.integer  "stage_order", default: 0
     t.integer  "cell_id"
-    t.string   "cycle"
+    t.string   "cycle",       default: "uninitiated"
   end
 
   add_index "viri", ["cell_id"], name: "index_viri_on_cell_id", unique: true, using: :btree
