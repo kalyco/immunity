@@ -3,32 +3,32 @@
   <h1 id="site-title"><a href="http://zurb.com/playground/">SYSTEM</a></h1>
       </nav>
 
-      <aside class="left-off-canvas-menu">
-        <ul class="off-canvas-list">
-          <li><span data-tooltip aria-haspopup="true" class="tip-top" title="to combat the enemy viruses. CAREFUL, though.
-        more cells risk greater subjugation from viruses.">
-        <div class='cell_form_click'><strong><%= link_to "generate more B cells"%> || </strong>
-        </div>
-          </span></li>
-          <li><span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
-        reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
-        system_path(@system), method: :PUT %> || </strong>
-      </span></li>
-        <li><span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
-      </span></li>
-        </ul>
-      </aside>
-    </div>
-
-      <section class="main-section">
-      <h3><%="#{@system.meta_points} points"%></h3>
-      <div class="new_cell_form">
-        <%= form_for [@system, @cell] do %>
-          <%= select_tag "new cells", options_for_select(0..@system.meta_points) %>
-          <%= button_tag "create cells" %>
-        <% end %>
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><span data-tooltip aria-haspopup="true" class="tip-top" title="to combat the enemy viruses. CAREFUL, though.
+      more cells risk greater subjugation from viruses.">
+      <div class='cell_form_click'><strong><%= link_to "generate more B cells"%> || </strong>
       </div>
+        </span></li>
+        <li><span data-tooltip aria-haspopup="true" class="tip-bottom" title="release pyrogens and induce fever. will reduce rate of
+      reproduction to both viruses and cells. 10 points = 1 extra system turn."><strong><%= link_to "activate pyrogenation",
+      system_path(@system), method: :PUT %> || </strong>
+    </span></li>
+      <li><span data-tooltip aria-haspopup="true" class="tip-bottom" title="programmed cell death. remove antigenic cells."><strong><%= link_to "initiate apoptosis", system_cell_path(@system, @cells), action: :destroy %> || </strong>
+    </span></li>
+      </ul>
+    </aside>
+  </div>
+
+    <section class="main-section">
+    <h3><%="#{@system.meta_points} points"%></h3>
+    <div class="new_cell_form">
+      <%= form_for [@system, @cell] do %>
+        <%= select_tag "new cells", options_for_select(0..@system.meta_points) %>
+        <%= button_tag "create cells" %>
+      <% end %>
     </div>
-      </section>
-      <a class="exit-off-canvas"></a>
-    </div>
+  </div>
+    </section>
+    <a class="exit-off-canvas"></a>
+  </div>
