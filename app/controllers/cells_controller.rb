@@ -41,15 +41,19 @@ class CellsController < ApplicationController
 
   def destroy
     @system = System.find_by(user: current_user)
-    @cells = Cell.where(system: @system, status: "antigen")
-    unless @system.apoptosis == 0
-      @cells.destroy
-      flash[:notice] = "you have destroyed all 'self' antigens."
-      redirect_to systems_path(@system)
+    cell = Cell.first(system: @system, volatile: true)
+    if params["remove cells"] != nil
+      params["remove cells"].to_i.times do
+        cell.destroy
+        cell = Cell.first(system: @system, volatile: true)
+      end
+    elsif
+      cell = nil
+      flash[:notice] = "no more volatile cells"
     else
       flash[:notice] = "system is too deprecated. incapable of
       activating apoptosis."
-      redirect_to systems_path(@system)
     end
+      redirect_to edit_system_path(@system)
   end
 end

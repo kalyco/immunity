@@ -9,102 +9,102 @@
 
 <div class="row">
   <div class="large-12">
-    <% if @system.turn.order == 1 %>
-      <%= "turn #{@system.turn.order}: #{@first}" %>
-    <% else %>
-      <%= "#{@system.turn.order}: #{@system.turn.progression}" %>
-    <% end %>
+      <%= "turn: #{@system.turn.order}" %>
 
-    <h1> system is currently <%= @system.status %> </h1>
-    <% if @system.turn.player == "system" %>
-      <h1> you have <%= @system.meta_points %> meta points to spend </h1>
-      <%= link_to "system turn", edit_system_path(@system), class: "button2" %>
-    <% end %>
-    <br><br>
+    <div class="centered_stuff">
+      <h1> system is currently <%= @system.status %> </h1>
+      <% if @system.turn.player == "system" %>
+        <h1> you have <%= @system.meta_points %> meta points to spend </h1>
+        <%= link_to "system turn", edit_system_path(@system), class: "button2" %>
+      <% else %>
+        <%= link_to "virus turn", system_viri_path(@system), class: 'button1' %>
 
- </div>
-<div>
+      <% end %>
+      <br><br>
 
-<div class= "show_tables">
-  <h1>system status</h1>
-  <table>
-    <tr>
-      <th>differentiation</th>
-      <th>memory</th>
-      <th>apoptosis</th>
-      <th>pyrogenation</th>
-      <th>balance points</th>
-      <th></th>
-    </tr>
+   </div>
+  <div>
 
-    <tr>
-      <td><%= @system.differentiation %></td>
-      <td><%= @system.memory %></td>
-      <td><%= "#{@system.apoptosis}" %></td>
-      <td><%= "#{@system.pyrogenation}" %></td>
-      <td><%= "#{@system.balance_points}" %></td>
-    </tr>
-  </table>
-  </div>
+  <div class= "show_tables">
+    <h1>system status</h1>
+    <table>
+      <tr>
+        <th>differentiation</th>
+        <th>memory</th>
+        <th>apoptosis</th>
+        <th>pyrogenation</th>
+        <th>balance points</th>
+        <th></th>
+      </tr>
 
-  <div id="system_chart" style="width:560px; height:300px;">
-    <div id="differentiation"><%= @system.differentiation %>
+      <tr>
+        <td><%= @system.differentiation %></td>
+        <td><%= @system.memory %></td>
+        <td><%= "#{@system.apoptosis}" %></td>
+        <td><%= "#{@system.pyrogenation}" %></td>
+        <td><%= "#{@system.balance_points}" %></td>
+      </tr>
+    </table>
     </div>
-    <div id="turn"><%= @system.turn %>
+
+    <div id="system_chart" style="width:560px; height:300px;">
+      <div id="differentiation"><%= @system.differentiation %>
+      </div>
+      <div id="turn"><%= @system.turn %>
+      </div>
     </div>
-  </div>
 
+      <h1>cell state</h1>
+      <table>
+        <tr>
+          <th>cells</th>
+          <th>antigens</th>
+          <th>antibodies</th>
+          <th></th>
+        </tr>
 
-  <h1>cell state</h1>
-  <table>
-    <tr>
-      <th>cells</th>
-      <th>antigens</th>
-      <th>antibodies</th>
-      <th></th>
-    </tr>
+        <tr>
+          <td><%= @cells.count %></td>
+          <% antigens = 0 %>
+          <% antibodies = 0 %>
+          <% @cells.each do |cell| %>
+            <% if cell.status == "antigen" %>
+              <% antigens += 1 %>
+            <% elsif cell.status == "antibody" %>
+              <% antibodies += 1 %>
+            <% end %>
+          <% end %>
+          <td><%= "#{(antigens.to_f/@cells.count).to_i*100}%" %></td>
+          <td><%= "#{(antibodies.to_f/@cells.count).to_i*100}%" %></td>
+        </tr>
+      </table>
+    </div>
 
-    <tr>
-      <td><%= @cells.count %></td>
-      <% antigens = 0 %>
-      <% antibodies = 0 %>
-      <% @cells.each do |cell| %>
-        <% if cell.status == "antigen" %>
-          <% antigens += 1 %>
-        <% elsif cell.status == "antibody" %>
-          <% antibodies += 1 %>
+    <h1>viri cycle</h1>
+      <table>
+        <tr>
+          <th>viri count</th>
+          <th>lysogenic</th>
+          <th>lytic</th>
+          <th></th>
+        </tr><tr>
+
+      <td><%= @viri.count %></td>
+      <% lysogenic = 0 %>
+      <% lytic = 0 %>
+      <% @viri.each do |virus| %>
+        <% if virus.cycle = "lytic" %>
+        <%  lytic += 1 %>
+        <% elsif virus.cycle = "lysogenic" %>
+        <%  lysogenic += 1 %>
         <% end %>
       <% end %>
-      <td><%= "#{(antigens.to_f/@cells.count).to_i*100}%" %></td>
-      <td><%= "#{(antibodies.to_f/@cells.count).to_i*100}%" %></td>
+      <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
+      <td><%= "#{(lytic/@viri.count)*100}%" %></td>
     </tr>
-  </table>
-</div>
+    </table>
 
-<h1>viri cycle</h1>
-  <table>
-    <tr>
-      <th>viri count</th>
-      <th>lysogenic</th>
-      <th>lytic</th>
-      <th></th>
-    </tr><tr>
-
-  <td><%= @viri.count %></td>
-  <% lysogenic = 0 %>
-  <% lytic = 0 %>
-  <% @viri.each do |virus| %>
-    <% if virus.cycle = "lytic" %>
-    <%  lytic += 1 %>
-    <% elsif virus.cycle = "lysogenic" %>
-    <%  lysogenic += 1 %>
-    <% end %>
+  <%= form_for @system, {url: system_viri_path(@system)} do |f| %>
+    <%= f.button "attempt vaccination" %>
   <% end %>
-  <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
-  <td><%= "#{(lytic/@viri.count)*100}%" %></td>
-</tr>
-</table>
-
-<%= form_for @system, {url: system_viri_path(@system)} do |f| %>
-  <%= f.button "attempt vaccination" %>
-<% end %>
+</div>
