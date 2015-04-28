@@ -103,8 +103,6 @@
       <td><%= "#{(lytic/@viri.count)*100}%" %></td>
     </tr>
     </table>
-
-  <%= form_for @system, {url: system_viri_path(@system)} do |f| %>
-    <%= f.button "attempt vaccination" %>
-  <% end %>
+    <br><br>
+    <%= link_to "attempt vaccination", system_cells_path(@system), class: 'button3' %>
 </div>
