@@ -10,10 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_tree ./modules
  *= require foundation_and_overrides
- *= require_self
+ *= require custom_buttons
 
  */
 
@@ -167,3 +165,20 @@ li {
   text-align: center
 }
 
+<<<<<<< HEAD
+=======
+#site-title {
+  position: fixed;
+  left: 50px;
+}
+
+table {
+  position: relative;
+  margin: auto;
+}
+
+#system_chart {
+  position: relative;
+  margin: auto;
+}
+>>>>>>> 13b84d57aa7735141c8c12d8ea9a303ee55b5bcf

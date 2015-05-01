@@ -7,34 +7,30 @@
     </div>
   <% end %>
 
-  <%= link_to "BACK TO THE SYSTEM", system_path(@system), method: "get" %>
-  <% @system.turn.next_turn unless @system.turn.player == "system" %>
+  <h3><%= link_to "BACK TO THE SYSTEM", system_path(@system), method: "get" %>
+  <% @system.turn.next_turn unless @system.turn.player == "system" %></h3>
 
   <table>
     <tr>
       <th>viri count</th>
+      <th>latent</th>
       <th>lysogenic</th>
       <th>lytic</th>
-      <th>latent</th>
       <th></th>
     </tr><tr>
 
   <td><%= @viri.count %></td>
+  <% latent = 0 %>
   <% lysogenic = 0 %>
   <% lytic = 0 %>
-  <% latent = 0 %>
   <% @viri.each do |virus| %>
-    <% if virus.status = "lytic" %>
-    <%  lytic += 1 %>
-    <% elsif virus.status = "lysogenic" %>
-    <%  lysogenic += 1 %>
-    <% elsif virus.status = "latent" %>
-    <%  latent += 1 %>
-    <% end %>
+    <% virus.status == "lytic" ? lytic += 1: nil %>
+    <% virus.status == "lysogenic" ? lysogenic += 1 : nil %>
+    <% virus.status == "latent" ? latent += 1 : nil %>
   <% end %>
+  <td><%= "#{(latent/@viri.count)*100}%" %></td>
   <td><%= "#{(lysogenic/@viri.count)*100}%" %></td>
   <td><%= "#{(lytic/@viri.count)*100}%" %></td>
-  <td><%= "#{(latent/@viri.count)*100}%" %></td>
 </tr>
 </table>
 

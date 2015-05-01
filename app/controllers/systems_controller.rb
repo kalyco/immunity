@@ -21,7 +21,8 @@ class SystemsController < ApplicationController
       @system.user = current_user
       if @system.save
         100.times do
-          Cell.create(system: @system)
+          cell = Cell.create(system: @system)
+          cell.split
         end
         50.times do
           Virus.create(system: @system)
@@ -30,8 +31,6 @@ class SystemsController < ApplicationController
         turn = Turn.create(system: @system)
         turn.save
         turn.first
-        chart = Chart.create(system: @system, turn: turn)
-        chart.save
         flash[:notice] = "this one's name is
           #{Faker::Name.first_name}. keep it safe. good luck."
         redirect_to system_path(@system)
