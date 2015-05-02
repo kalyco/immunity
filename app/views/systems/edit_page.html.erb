@@ -7,6 +7,7 @@
 
   <%= stylesheet_link_tag 'app', media: 'all' %>
   <%= stylesheet_link_tag 'offcanvas', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
 
   <script src="javascripts/foundation/modernizr.foundation.js"></script>
 
@@ -46,8 +47,8 @@
        var sysTurn = <%= @system.turn_count %>
      </script>
 
-    <div class="row">
-      <section role="main" id="main">
+    <section role="main" id="main">
+      <div class="row">
         <article id="panel-1" class="page-panel">
           <h1>generate b cells</h1>
           <p>produce a random cell for each meta point.</p>
@@ -71,49 +72,30 @@
 
 
         <article id="panel-3" class="page-panel">
-          <h1>Panel 3</h1>
-          <p>Quisque lacinia est a libero tempor quis gravida nibh luctus. Nulla facilisi. Vestibulum bibendum ipsum a lacus molestie pulvinar a nec risus. Nulla facilisi. Aenean nec tellus ligula. Ut tortor mi, consequat in ornare in, condimentum sed leo. Phasellus et luctus ipsum. Mauris gravida molestie velit ac iaculis. Integer quis libero id erat consectetur accumsan ut eget diam. In hac habitasse platea dictumst.</p>
-          <p>Quisque lacinia est a libero tempor quis gravida nibh luctus. Nulla facilisi. Vestibulum bibendum ipsum a lacus molestie pulvinar a nec risus. Nulla facilisi. Aenean nec tellus ligula. Ut tortor mi, consequat in ornare in, condimentum sed leo. Phasellus et luctus ipsum. Mauris gravida molestie velit ac iaculis. Integer quis libero id erat consectetur accumsan ut eget diam. In hac habitasse platea dictumst.</p>
-          <p>Quisque lacinia est a libero tempor quis gravida nibh luctus. Nulla facilisi. Vestibulum bibendum ipsum a lacus molestie pulvinar a nec risus. Nulla facilisi. Aenean nec tellus ligula. Ut tortor mi, consequat in ornare in, condimentum sed leo. Phasellus et luctus ipsum. Mauris gravida molestie velit ac iaculis. Integer quis libero id erat consectetur accumsan ut eget diam. In hac habitasse platea dictumst.</p>
-        </article><!-- /#panel-3 -->
+          <h1>pyrogens</h1>
+          <p>create pyrogens to increase system temperature and reduce rate of viral cycle progression.</p>
+        </article>
 
 
         <article id="panel-4" class="page-panel">
-          <h1>Panel 4</h1>
-          <p>Quisque lacinia est a libero tempor quis gravida nibh luctus. Nulla facilisi. Vestibulum bibendum ipsum a lacus molestie pulvinar a nec risus. Nulla facilisi. Aenean nec tellus ligula. Ut tortor mi, consequat in ornare in, condimentum sed leo. Phasellus et luctus ipsum. Mauris gravida molestie velit ac iaculis. Integer quis libero id erat consectetur accumsan ut eget diam. In hac habitasse platea dictumst.</p>
-        </article><!-- /#panel-4 -->
-
+          <h1>inflammation</h1>
+          <p>direct viral attack. removes viruses in accordance with non-volatile cell volume.</p>
+        </article>
 
         <article id="panel-5" class="page-panel">
-          <h1>Panel 5</h1>
-          <p>Quisque lacinia est a libero tempor quis gravida nibh luctus. Nulla facilisi. Vestibulum bibendum ipsum a lacus molestie pulvinar a nec risus. Nulla facilisi. Aenean nec tellus ligula. Ut tortor mi, consequat in ornare in, condimentum sed leo. Phasellus et luctus ipsum. Mauris gravida molestie velit ac iaculis. Integer quis libero id erat consectetur accumsan ut eget diam. In hac habitasse platea dictumst.</p>
-        </article><!-- /#panel-5 -->
+          <h1>end</h1>
+          <p>end turn and go back to main page</p>
+          <%= link_to "end system turn", system_path(@system) , action: :get,
+        data: { confirm: 'turn finished?' } %>
+        </article>
 
       </section>
     </div>
 
     <footer class="site-footer row" role="contentinfo">
       <div class="twelve columns">
-        Created by ZURB for Foundation 3, based on code from Jason Weaver and Luke Wroblewski
       </div>
     </footer>
   </div>
-
-
-  <!-- Included JS Files -->
-  <script src="javascripts/foundation/jquery.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.reveal.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.orbit.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.forms.js"></script>
-  <script src="javascripts/foundation/jquery.placeholder.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.tooltips.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.alerts.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.buttons.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.accordion.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.navigation.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.mediaQueryToggle.js"></script>
-  <script src="javascripts/foundation/jquery.foundation.tabs.js"></script>
-  <script src="javascripts/foundation/jquery.offcanvas.js"></script>
-  <script src="javascripts/foundation/app.js"></script>
 
 </body>

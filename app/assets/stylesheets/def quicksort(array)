@@ -1,0 +1,21 @@
+def quicksort(array)
+  left = 0
+  pivot = array.sample
+  right = -1
+  until left == right
+    if array[right] <= array[left]
+      array[right], array[left] = array[left], array[right]
+    else array[right] = array[right + 1]
+    end
+
+  end
+end
+
+
+
+
+def quicksort(array)
+  left,right = 0,-1
+  pivot = array.sample
+  until array
+end

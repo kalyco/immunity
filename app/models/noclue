@@ -1,0 +1,20 @@
+def mymethod(name, *args)
+
+end
+
+*args => referencing the parameters
+*args[0] => referencing the argument
+
+
+what are the benefits of defining methods?
+
+keeps code DRY, can be re-used
+easy to maintain and add on to
+
+
+arrays important for sequence
+hashes important for 1:1 correlations and quicker access if you know exactly what you are looking for
+
+gem?
+
+custom libraries
