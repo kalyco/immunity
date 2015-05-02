@@ -2,6 +2,8 @@
 
 # immunity
 
+a turn-based PvC immune system strategy game
+
 ### Ruby version
 Used version ruby 2.1.5p273
 
