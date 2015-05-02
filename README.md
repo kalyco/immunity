@@ -30,7 +30,7 @@ http://i.imgur.com/oPWZ2Mu.png)
 http://i.imgur.com/6q4c6NT.png)
 
 #### Virus Stage
-![viri stage(
+![viri stage](
 http://i.imgur.com/bgejlMo.png)
 
 
