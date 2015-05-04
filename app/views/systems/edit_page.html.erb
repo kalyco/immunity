@@ -67,7 +67,7 @@
             <%= select_tag "remove cells", options_for_select(0..@system.meta_points) %>
            <%= button_tag "remove cells" %>
           <% end %>
-          <%= pie_chart @cells.group(:volatile).count %>
+          <div class="pie1"></div>
         </article><!-- /#panel-2 -->
 
 
@@ -85,9 +85,13 @@
         <article id="panel-5" class="page-panel">
           <h1>end</h1>
           <p>end turn and go back to main page</p>
-          <%= link_to "end system turn", system_path(@system) , action: :get,
-        data: { confirm: 'turn finished?' } %>
-        </article>
+          <%= form_for [@system, @turn], { url: system_path(@system) } do |f| %>
+          <%= f.hidden_field :player, :value => "virus" %>
+          <%= f.hidden_field :order, :value => @turn.order + 1 %>
+          <%= f.submit "end system turn", class:
+          "button" %>
+          <% end %>
+          </article>
 
       </section>
     </div>

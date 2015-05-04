@@ -52,10 +52,12 @@ class SystemsController < ApplicationController
   def update
     @system = user_system
     @stage = @system.stage
-      if @system.update(system_params)
-        @stage.reset
-        redirect_to system_path(@system)
+    @turn = @system.turn
+    if @system.update(system_params) && @stage.name != "adaptive"
+      @stage.reset
     end
+    @turn.update(turn_params)
+    redirect_to system_path(@system)
   end
 
   def destroy
@@ -77,7 +79,13 @@ class SystemsController < ApplicationController
     end
   end
 
+  def turn_params
+    params.require(:turn).permit(:name, :order)
+  end
+
   def system_params
-    params.require(:system).permit(:stage, :meta_points, :memory)
+    unless params[:system] == nil
+      params.require(:system).permit(:stage, :meta_points, :memory, :turn)
+    end
   end
 end

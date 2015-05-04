@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :stages
   resources :cells
   resources :viri
+  resources :turn
   end
   devise_for :users
   resources :users, only: [:index, :show, :update]
