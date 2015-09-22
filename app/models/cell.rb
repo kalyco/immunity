@@ -1,4 +1,8 @@
 class Cell < ActiveRecord::Base
+  belongs_to :system
+  has_one :virus
+  validates_presence_of :system
+
 	ANTIBODY = 0
 	ANTIGEN = 1
 
@@ -12,11 +16,6 @@ class Cell < ActiveRecord::Base
     self.volatile = rando.sample
     self.save
   end
-
-	belongs_to :system
-  has_one :virus
-
-	validates_presence_of :system
 
   def status_name
     STATUSES[status]

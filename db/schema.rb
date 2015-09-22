@@ -47,13 +47,6 @@ ActiveRecord::Schema.define(version: 20150425225209) do
 
   add_index "stages", ["system_id"], name: "index_stages_on_system_id", unique: true, using: :btree
 
-  create_table "system_charts", force: :cascade do |t|
-    t.integer "system_id"
-    t.integer "turn_id"
-  end
-
-  add_index "system_charts", ["system_id", "turn_id"], name: "index_system_charts_on_system_id_and_turn_id", unique: true, using: :btree
-
   create_table "systems", force: :cascade do |t|
     t.integer  "meta_points",     default: 30
     t.integer  "user_id",                                   null: false
