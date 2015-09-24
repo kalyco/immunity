@@ -1,6 +1,9 @@
 class CellsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+  end
+
   def new
     @system = System.find(params[:system_id])
     @cell = Cell.new

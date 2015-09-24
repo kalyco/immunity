@@ -16,11 +16,15 @@ class System < ActiveRecord::Base
       total = stage.cytokines + stage.phagocytes + stage.macromolecules
       self.meta_points -= (total)
       self.save
-      end
-      if self.meta_points > 0 || total != 30
+    end
+    if self.meta_points > 0 || total != 30
         reset
-      end
+    end
     return points
+  end
+
+  def balance_out
+    
   end
 
   def pyro_turn
