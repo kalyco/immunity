@@ -50,6 +50,7 @@ class SystemsController < ApplicationController
   end
 
   def update
+    binding.pry
     @system = user_system
     @stage = @system.stage
     @turn = @system.turn

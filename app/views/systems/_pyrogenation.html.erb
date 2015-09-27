@@ -1,0 +1,6 @@
+<article id="panel-3" class="page-panel">
+  <h1>pyrogens</h1>
+  <p>create pyrogens to increase system temperature and reduce rate of viral cycle progression.</p>
+  <%= select_tag @system.pyrogenation, options_for_select(0..@system.meta_points) %>
+  <%= button_tag "add pyrogens" %>
+</article>

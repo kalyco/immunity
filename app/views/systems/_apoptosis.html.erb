@@ -1,0 +1,9 @@
+        <article id="panel-2" class="page-panel">
+          <h1>apoptosis</h1>
+          <p>programmed cell death to remove a volatile cell for each meta point.</p>
+          <%= form_for [@system, @cell] do %>
+            <%= select_tag "remove cells", options_for_select(0..@system.meta_points) %>
+           <%= button_tag "remove cells" %>
+          <% end %>
+          <div class="pie1"></div>
+        </article>
