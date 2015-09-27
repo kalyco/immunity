@@ -68,9 +68,7 @@ class Virus < ActiveRecord::Base
 
   def self.next_cycle
     viri = self.all
-    viri.each do |virus|
-      virus.cycle_method
-    end
+    viri.each { |virus| virus.cycle_method }
   end
 end
 
