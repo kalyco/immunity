@@ -18,8 +18,7 @@
 
     <header id="header" class="row">
       <div class="four columns">
-        <h1 id="site-title"><a href="http://zurb.com/playground/">system<br>
-        <%= "#{@system.meta_points} points" %></a></h1>
+        <h1 id="site-title"><%= "#{@system.meta_points} points" %></h1>
       </div>
       <div class="eight columns">
         <nav id="menu" role="navigation" class="hide-for-small">
@@ -86,8 +85,8 @@
           <h1>end</h1>
           <p>end turn and go back to main page</p>
           <%= form_for [@system, @turn], { url: system_path(@system) } do |f| %>
-          <%= f.hidden_field :player, :value => "virus" %>
-          <%= f.hidden_field :order, :value => @turn.order + 1 %>
+          <%= f.hidden_field :player, value: "virus" %>
+          <%= f.hidden_field :order, value: @turn.order + 1 %>
           <%= f.submit "end system turn", class:
           "button" %>
           <% end %>

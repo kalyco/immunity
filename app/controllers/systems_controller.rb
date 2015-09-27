@@ -53,9 +53,7 @@ class SystemsController < ApplicationController
     @system = user_system
     @stage = @system.stage
     @turn = @system.turn
-    if @system.update(system_params) && @stage.name != "adaptive"
-      @stage.reset
-    end
+    binding.pry
     @turn.update(turn_params)
     redirect_to system_path(@system)
   end
@@ -80,7 +78,7 @@ class SystemsController < ApplicationController
   end
 
   def turn_params
-    params.require(:turn).permit(:name, :order)
+    params.require(:turn).permit(:player, :order)
   end
 
   def system_params
