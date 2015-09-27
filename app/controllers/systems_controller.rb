@@ -53,7 +53,6 @@ class SystemsController < ApplicationController
     @system = user_system
     @stage = @system.stage
     @turn = @system.turn
-    binding.pry
     @turn.update(turn_params)
     redirect_to system_path(@system)
   end

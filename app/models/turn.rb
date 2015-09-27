@@ -6,7 +6,7 @@ class Turn < ActiveRecord::Base
   PICK = ["virus", "system"]
 
   def first
-    if self.player == nil && self.system.stage.name != "innate"
+    if self.player == nil && self.system.stage.name == "adaptive"
       self.player = PICK.sample
       if system?
         award_meta_points
@@ -29,9 +29,9 @@ class Turn < ActiveRecord::Base
   def next_turn
     if system? == true
       self.player = PICK[0]
-      award_meta_points
     else
       self.player = PICK[1]
+      award_meta_points
     end
     self.save!
   end
@@ -51,6 +51,6 @@ class Turn < ActiveRecord::Base
 
   def award_meta_points
     self.system.meta_points += 10
-    self.system.save!
+    self.system.save
   end
 end
