@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :cells
   resources :viri
   resources :turn
+  resources :vaccinations, only: [:index]
   end
   devise_for :users
   resources :users, only: [:index, :show, :update]

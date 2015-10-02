@@ -5,6 +5,7 @@ class System < ActiveRecord::Base
 	has_many :cells, dependent: :destroy
 	has_one :stage, dependent: :destroy
   has_one :chart, dependent: :destroy
+  has_one :vaccination, dependent: :destroy
 
   validates :meta_points, numericality: { greater_than_or_equal_to: 0 }
 	validates_presence_of :user
@@ -86,6 +87,23 @@ class System < ActiveRecord::Base
       total += 1
     end
   arr
+  end
+
+  def creation(user)
+    self.user = user
+    100.times do
+      cell = Cell.create(system: self)
+      cell.split
+    end
+    50.times do
+      Virus.create(system: self)
+    end
+    vaccination = Vaccination.create(system: self)
+    stage = Stage.create(system: self)
+    turn = Turn.create(system: self)
+    turn.save
+    turn.first
+    self.save!
   end
 end
 

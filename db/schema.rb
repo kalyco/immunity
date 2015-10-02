@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923171408) do
+ActiveRecord::Schema.define(version: 20150930022633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20150923171408) do
   end
 
   add_index "charts", ["system_id", "turn_id"], name: "index_charts_on_system_id_and_turn_id", unique: true, using: :btree
+
+  create_table "dies", force: :cascade do |t|
+    t.integer  "cells_id"
+    t.integer  "viri_id"
+    t.integer  "roll"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "stages", force: :cascade do |t|
     t.integer  "system_id",                         null: false
@@ -88,6 +96,11 @@ ActiveRecord::Schema.define(version: 20150923171408) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vaccinations", force: :cascade do |t|
+    t.integer "system_id"
+    t.boolean "success"
+  end
 
   create_table "viri", force: :cascade do |t|
     t.integer  "system_id"

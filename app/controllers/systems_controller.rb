@@ -1,6 +1,6 @@
 class SystemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_innate_stage, only: :show
+  before_filter :check_innate_stage, only: :show
 
   def show
     @system = System.find(params[:id])
@@ -17,22 +17,11 @@ class SystemsController < ApplicationController
 
   def create
     if user_system == nil
-      @system = System.new
-      @system.user = current_user
+      @system = System.create(system_params)
+      @system.creation(current_user)
       if @system.save
-        100.times do
-          cell = Cell.create(system: @system)
-          cell.split
-        end
-        50.times do
-          Virus.create(system: @system)
-        end
-        stage = Stage.create(system: @system)
-        turn = Turn.create(system: @system)
-        turn.save
-        turn.first
         flash[:notice] = "this one's name is
-          #{Faker::Name.first_name}. keep it safe. good luck."
+        #{Faker::Name.first_name}. keep it safe. good luck."
         redirect_to system_path(@system)
       else
         render :new
@@ -65,16 +54,15 @@ class SystemsController < ApplicationController
       redirect_to root_path
   end
 
+  private
+
   def user_system
     System.find_by(user: current_user)
   end
 
-  private
   def check_innate_stage
-    if params[:id]
-      @system = System.find(params[:id])
-      redirect_to system_innates_path(@system) if @system.stage.name == "innate"
-    end
+    @system = System.find(params[:id])
+    redirect_to system_innates_path(@system) if @system.stage.name == "innate"
   end
 
   def turn_params
@@ -83,7 +71,7 @@ class SystemsController < ApplicationController
 
   def system_params
     unless params[:system] == nil
-      params.require(:system).permit(:stage, :meta_points, :memory, :turn)
+      params.require(:system).permit(:stage, :meta_points, :memory, :turn, :user)
     end
   end
 end
