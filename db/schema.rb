@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930022633) do
+ActiveRecord::Schema.define(version: 20151003225926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(version: 20150930022633) do
 
   add_index "charts", ["system_id", "turn_id"], name: "index_charts_on_system_id_and_turn_id", unique: true, using: :btree
 
-  create_table "dies", force: :cascade do |t|
+  create_table "dice", force: :cascade do |t|
     t.integer  "cells_id"
     t.integer  "viri_id"
+    t.boolean  "win"
     t.integer  "roll"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -24,10 +24,6 @@ class System < ActiveRecord::Base
     return points
   end
 
-  def balance_out
-    
-  end
-
   def pyro_turn
     if self.pyrogenation >= 10
       self.next_turn = "system"

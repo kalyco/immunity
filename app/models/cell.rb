@@ -1,7 +1,7 @@
 class Cell < ActiveRecord::Base
   belongs_to :system
   has_one :virus
-  has_one :dice
+  has_one :die
   validates_presence_of :system
 
 	ANTIBODY = 0

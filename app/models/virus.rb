@@ -2,7 +2,7 @@ class Virus < ActiveRecord::Base
 	belongs_to :system
   has_one :turn, through: :system
   has_one :cell
-  has_one :dice
+  has_one :die
 
 	validates_presence_of :system
 
