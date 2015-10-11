@@ -1,8 +1,8 @@
 class CreateDice < ActiveRecord::Migration
   def change
     create_table :dice do |t|
-      t.references :cells
-      t.references :viri
+      t.references :cell
+      t.references :virus
       t.boolean :win
       t.integer :roll
 

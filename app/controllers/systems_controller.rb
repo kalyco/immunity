@@ -39,7 +39,6 @@ class SystemsController < ApplicationController
   end
 
   def update
-    binding.pry
     @system = user_system
     @stage = @system.stage
     @turn = @system.turn
@@ -48,10 +47,10 @@ class SystemsController < ApplicationController
   end
 
   def destroy
-      @system = System.find(params[:id])
-      @system.destroy
-      flash[:notice] = 'disease is immunodeficient. system shut down'
-      redirect_to root_path
+    @system = System.find(params[:id])
+    @system.destroy
+    flash[:notice] = 'disease is immunodeficient. system shut down'
+    redirect_to root_path
   end
 
   private
@@ -71,7 +70,7 @@ class SystemsController < ApplicationController
 
   def system_params
     unless params[:system] == nil
-      params.require(:system).permit(:stage, :meta_points, :memory, :turn, :user)
+      params.require(:system).permit(:stage, :meta_points, :memory, :turn, :user, :die)
     end
   end
 end

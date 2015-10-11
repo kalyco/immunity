@@ -2,4 +2,4 @@
 
 <%= binding.pry %>
 
-<div id="pie"><%= pie_chart @cells.dice.group(:roll).count %>
+<div id="pie"><%= pie_chart @cells.group(:dice) %></div>

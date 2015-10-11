@@ -15,17 +15,13 @@ class CellsController < ApplicationController
 
   def create
     if params["new cells"] != nil
-      params["new cells"].to_i.times do |cell|
-        cell = Cell.new(system: @system)
-        cell.split && cell.save
-      end
-      @system.meta_points -= params["new cells"].to_i
-      @system.save
-      flash[:notice] = "created #{params["new cells"].to_i} new cells"
-      redirect_to edit_system_path(@system)
+      create_cells(params["new cells"].to_i)
     else
-      flash[:notice] = 'cell not created.'
-      render :new
+      cell = Cell.create(system: @system)
+      cell.split && cell.save
+      die = Die.create(system: @system, cell: cell)
+      die.save
+      redirect_to system_path(@system)
     end
   end
 
@@ -50,6 +46,19 @@ class CellsController < ApplicationController
 
   def find_system
     @system = System.find_by(user: current_user)
+  end
+
+  def create_cells(quantity)
+    quantity.times do |cell|
+      cell = Cell.new(system: @system)
+      cell.split && cell.save
+      die = Die.create(cell_id: cell.id)
+      die.save
+    end
+    @system.meta_points -= params["new cells"].to_i
+    @system.save
+    flash[:notice] = "created #{params["new cells"].to_i} new cells"
+    redirect_to edit_system_path(@system)
   end
 end
 

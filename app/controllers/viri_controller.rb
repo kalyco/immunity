@@ -13,6 +13,8 @@ class ViriController < ApplicationController
   def create
     @virus = Virus.new(virus_params)
     if @virus.save
+      dice = Die.create(virus_id: virus.id)
+      dice.save    
       flash[:notice] = 'virus created'
       redirect_to '/system'
     else

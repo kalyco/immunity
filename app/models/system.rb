@@ -88,11 +88,13 @@ class System < ActiveRecord::Base
   def creation(user)
     self.user = user
     100.times do
-      cell = Cell.create(system: self)
-      cell.split
+      die = Die.create
+      cell = Cell.create(system: self, die: die)
+      cell.split && cell.save
     end
     50.times do
-      Virus.create(system: self)
+      die = Die.create
+      virus = Virus.create(system: self, die: die)
     end
     vaccination = Vaccination.create(system: self)
     stage = Stage.create(system: self)

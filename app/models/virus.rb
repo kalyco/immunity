@@ -1,4 +1,4 @@
-class Virus < ActiveRecord::Base
+  class Virus < ActiveRecord::Base
 	belongs_to :system
   has_one :turn, through: :system
   has_one :cell
@@ -69,7 +69,9 @@ class Virus < ActiveRecord::Base
 
   def self.next_cycle
     viri = self.all
-    viri.each { |virus| virus.cycle_method }
+    viri.each do |virus|
+      virus.cycle_method
+    end
   end
 end
 
