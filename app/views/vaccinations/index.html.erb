@@ -1,5 +1,5 @@
 <h1>Viri and Cells roll off!</h1>
 
-<%= binding.pry %>
+<h2><%= @vaccination.result(@c_dice, @v_dice) %></h2>
 
-<div id="pie"><%= pie_chart @cells.group(:dice) %></div>
+<div id="pie"><%= pie_chart @v_dice.group(:roll).count %></div>

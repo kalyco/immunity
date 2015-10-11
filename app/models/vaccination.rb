@@ -1,22 +1,25 @@
 class Vaccination < ActiveRecord::Base
   belongs_to :system
 
-  def roll_off(cells)
-    cells.each do |cell|
-      cell.dice.roll && cell.virus.dice.roll
+  def compare(c_dice, v_dice)
+    c_dice.each do |c_die|
+      v_dice.each do |v_die|
+        if c_die.roll > v_die.roll  
+          c_die.win = true
+          v_die.win = false
+        else
+          v_die.win = true
+          c_die.win = false
+        end
+        c_die.save && v_die.save
+      end
     end
   end
 
-  def compare(cells)
-    cells.each do |cell|
-      cell.dice.roll > cell.virus.dice.roll ? cell.dice.win = true : cell.dice.win = false
-    end
-  end
-
-  def result(cells)
-    wins = cells.where(dice.win == true)
-    losses = cells.where(dice.win == false)
-    if wins > losses
+  def result(c_dice, v_dice)
+    wins = c_dice.where(win: true)
+    losses = v_dice.where(win: true)
+    if wins.count > losses.count
       return "system"
     else return "viri"
     end

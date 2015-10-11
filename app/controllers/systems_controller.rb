@@ -20,7 +20,7 @@ class SystemsController < ApplicationController
       @system = System.create(system_params)
       @system.creation(current_user)
       if @system.save
-        flash[:notice] = "this one's name is
+        flash[:success] = "this one's name is
         #{Faker::Name.first_name}. keep it safe. good luck."
         redirect_to system_path(@system)
       else
